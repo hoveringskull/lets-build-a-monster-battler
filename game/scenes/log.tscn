@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5pwbmjdjsdbc"]
+
+[ext_resource type="Script" uid="uid://cxhwpgt3bxy43" path="res://scripts/ui/log.gd" id="1_spugk"]
+
+[node name="log" type="ScrollContainer" node_paths=PackedStringArray("content_container")]
+script = ExtResource("1_spugk")
+content_container = NodePath("content")
+metadata/_tab_index = 0
+
+[node name="content" type="VBoxContainer" parent="."]
+layout_mode = 2

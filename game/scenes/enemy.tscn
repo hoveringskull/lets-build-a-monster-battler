@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bao415htofey6"]
+
+[ext_resource type="Script" uid="uid://lvayvh8a3e6" path="res://scripts/ui/monster_data_dump.gd" id="1_7p1mj"]
+
+[node name="enemy" type="ScrollContainer"]
+visible = false
+texture_filter = 1
+metadata/_tab_index = 2
+
+[node name="enemy_info" type="Label" parent="."]
+layout_mode = 2
+script = ExtResource("1_7p1mj")

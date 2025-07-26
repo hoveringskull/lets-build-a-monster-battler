@@ -1,0 +1,19 @@
+extends Node
+
+signal request_option_selected
+signal request_restart
+signal request_quit
+signal request_log
+signal request_menu_fight
+signal request_menu_monsters
+signal request_menu_back
+signal request_menu_items
+
+signal on_battle_is_setup
+signal on_ui_ready
+signal on_new_game_state
+signal on_game_over
+signal on_menu_fight
+signal on_menu_back
+signal on_menu_select_monster
+signal on_menu_items

@@ -1,0 +1,102 @@
+[gd_scene load_steps=3 format=3 uid="uid://crpahbrk5mgcm"]
+
+[ext_resource type="Script" uid="uid://bjmv0bo5aupxs" path="res://scripts/ui/battle_menu.gd" id="1_n0kuk"]
+[ext_resource type="Script" uid="uid://c8c2ar3x10q7a" path="res://scripts/ui/option_panel.gd" id="2_knfhs"]
+
+[node name="controls_menu" type="Control"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="menu" type="Control" parent="." node_paths=PackedStringArray("select_fight", "select_run", "select_mon", "select_item", "select_back", "main_menu", "fight_menu", "item_menu", "mon_menu")]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n0kuk")
+select_fight = NodePath("main-controls/ft")
+select_run = NodePath("main-controls/run")
+select_mon = NodePath("main-controls/mons")
+select_item = NodePath("main-controls/item")
+select_back = NodePath("option_back")
+main_menu = NodePath("main-controls")
+fight_menu = NodePath("ft")
+item_menu = NodePath("items")
+mon_menu = NodePath("mons")
+
+[node name="main-controls" type="GridContainer" parent="menu"]
+visible = false
+layout_mode = 2
+offset_right = 95.0
+offset_bottom = 40.0
+columns = 2
+
+[node name="ft" type="Button" parent="menu/main-controls"]
+texture_filter = 1
+layout_mode = 2
+text = "> FIGHT"
+alignment = 0
+
+[node name="item" type="Button" parent="menu/main-controls"]
+texture_filter = 1
+layout_mode = 2
+text = "> ITEM"
+alignment = 0
+
+[node name="mons" type="Button" parent="menu/main-controls"]
+texture_filter = 1
+layout_mode = 2
+text = "> MONS"
+alignment = 0
+
+[node name="run" type="Button" parent="menu/main-controls"]
+texture_filter = 1
+layout_mode = 2
+text = "> RUN"
+alignment = 0
+
+[node name="ft" type="ScrollContainer" parent="menu" node_paths=PackedStringArray("options_parent")]
+layout_mode = 0
+offset_right = 191.0
+offset_bottom = 99.0
+script = ExtResource("2_knfhs")
+mode = 1
+options_parent = NodePath("ft_options")
+
+[node name="ft_options" type="VBoxContainer" parent="menu/ft"]
+layout_mode = 2
+
+[node name="items" type="ScrollContainer" parent="menu" node_paths=PackedStringArray("options_parent")]
+visible = false
+layout_mode = 0
+offset_right = 103.0
+offset_bottom = 85.0
+script = ExtResource("2_knfhs")
+mode = 2
+options_parent = NodePath("item_options")
+
+[node name="item_options" type="VBoxContainer" parent="menu/items"]
+layout_mode = 2
+
+[node name="mons" type="ScrollContainer" parent="menu" node_paths=PackedStringArray("options_parent")]
+visible = false
+layout_mode = 0
+offset_right = 183.0
+offset_bottom = 85.0
+script = ExtResource("2_knfhs")
+mode = 3
+options_parent = NodePath("mon_options")
+
+[node name="mon_options" type="VBoxContainer" parent="menu/mons"]
+layout_mode = 2
+
+[node name="option_back" type="Button" parent="menu"]
+visible = false
+layout_mode = 0
+offset_top = 72.0
+offset_right = 40.0
+offset_bottom = 112.0
+text = "BACK"

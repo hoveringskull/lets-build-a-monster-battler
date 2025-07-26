@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvnmhvojccgov"]
+
+[ext_resource type="Script" uid="uid://lvayvh8a3e6" path="res://scripts/ui/monster_data_dump.gd" id="1_0hrdx"]
+
+[node name="mon_data_info" type="ScrollContainer" node_paths=PackedStringArray("label")]
+texture_filter = 1
+script = ExtResource("1_0hrdx")
+label = NodePath("info")
+metadata/_tab_index = 1
+
+[node name="info" type="Label" parent="."]
+layout_mode = 2

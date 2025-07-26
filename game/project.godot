@@ -11,9 +11,28 @@ config_version=5
 [application]
 
 config/name="Let's Build a Monster Battler"
+run/main_scene="uid://dsstlaea5k8aw"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Events="*res://scripts/infra/events.gd"
+GameRunner="*res://scripts/controller/game_runner.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=1040
 
 [dotnet]
 
 project/assembly_name="Let-s Build a Monster Battler"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
