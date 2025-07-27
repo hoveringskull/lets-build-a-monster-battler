@@ -6,6 +6,7 @@
 
 [node name="monster_renderer_module" type="HBoxContainer" node_paths=PackedStringArray("frame", "data_panel", "name_label", "hp_label", "hp_bar", "status_label", "sprite")]
 custom_minimum_size = Vector2(0, 58)
+theme = ExtResource("2_4w4es")
 script = ExtResource("1_3kg54")
 frame = NodePath("frame")
 data_panel = NodePath("monster_data")

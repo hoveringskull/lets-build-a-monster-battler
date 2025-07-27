@@ -13,24 +13,28 @@ extends Control
 
 
 func _ready():
+	# Connect signal listeners
 	select_fight.pressed.connect(Events.request_menu_fight.emit)
 	select_mon.pressed.connect(Events.request_menu_monsters.emit)
 	select_item.pressed.connect(Events.request_menu_items.emit)
 	select_run.pressed.connect(handle_select_run)
 	select_back.pressed.connect(handle_select_main)
-
 	Events.on_menu_fight.connect(handle_select_fight)
 	Events.on_menu_select_monster.connect(handle_select_monsters)
 	Events.on_menu_items.connect(handle_select_items)
 	
+	# Anytime an option is successfully selected, we want to reutrn to main. Underscored variables ignored.
+	Events.request_option_selected.connect(func(_mode, _index): handle_select_main())
+
+	# Activate the main menu 
 	handle_select_main()
-	Events.request_option_selected.connect(func(_1, _2): handle_select_main())
 
 func is_interaction_blocked():
-	# TODO: We will want to block interaction at some point. We can use this.
+	# TODO: We will want to block interaction at some point. We can use this for that.
 	return false
 
 func hide_all():
+	# Hides all menus. Useful since we only want one to show at a time.
 	main_menu.hide()
 	fight_menu.hide()
 	select_back.hide()
@@ -72,6 +76,7 @@ func handle_select_items(labels: Array[StringEnabled]):
 
 
 func handle_select_run():
+	# Since we only have battles and no overworld in this prototype, running means quitting.
 	if is_interaction_blocked():
 		return
 

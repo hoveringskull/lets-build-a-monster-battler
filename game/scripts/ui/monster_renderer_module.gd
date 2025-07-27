@@ -1,5 +1,8 @@
 class_name MonsterRendererModule extends Control
 
+# This is a UI panel that handles all visuals for a monster in the battle, 
+# including its sprite, HPbar and name
+
 @export 
 var your_pov: bool
 

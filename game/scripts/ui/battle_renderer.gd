@@ -6,7 +6,10 @@ extends Control
 @export var player_mon_state_dump: MonsterDataDump
 
 func _ready() -> void:
+	# Connect signal listeners
 	Events.on_battle_is_setup.connect(render)
+	
+	# Once listeners are connected, we need to emit an event to unblock gameplay
 	Events.on_ui_ready.emit()
 	
 	

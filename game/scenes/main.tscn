@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsstlaea5k8aw"]
+[gd_scene load_steps=9 format=3 uid="uid://dsstlaea5k8aw"]
 
 [ext_resource type="Theme" uid="uid://bwqrj7njjbn07" path="res://ui/main.tres" id="2_trceg"]
 [ext_resource type="Script" uid="uid://b7eoh6vvt5ick" path="res://scripts/ui/battle_renderer.gd" id="3_a8y0u"]
@@ -8,8 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bvnmhvojccgov" path="res://scenes/you.tscn" id="8_eb6dy"]
 [ext_resource type="FontFile" uid="uid://xj2o3brbo27g" path="res://assets/fonts/basis33.ttf" id="9_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://nm6g7isc13cg" path="res://scenes/outcome.tscn" id="10_a8y0u"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_h2yge"]
 
 [node name="main" type="Node2D"]
 
@@ -28,16 +26,6 @@ enemy_mon_module = NodePath("left/mon_renderer_module")
 player_mon_module = NodePath("left/mon_renderer_module2")
 enemy_mon_state_dump = NodePath("tabs/them")
 player_mon_state_dump = NodePath("tabs/you")
-
-[node name="bg" type="TextureRect" parent="battle_renderer"]
-modulate = Color(0.607843, 0.737255, 0.0588235, 1)
-layout_mode = 0
-offset_left = -53.0
-offset_top = -28.0
-offset_right = -4.0
-offset_bottom = 67.0
-scale = Vector2(10.5129, 4.41138)
-texture = SubResource("CanvasTexture_h2yge")
 
 [node name="left" type="VBoxContainer" parent="battle_renderer"]
 layout_mode = 0
@@ -77,6 +65,7 @@ layout_mode = 2
 metadata/_tab_index = 2
 
 [node name="outcome" parent="battle_renderer" instance=ExtResource("10_a8y0u")]
+visible = false
 layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
