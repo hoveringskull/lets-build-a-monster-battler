@@ -28,5 +28,5 @@ var status_label: Label
 var sprite: Sprite2D
 
 func _ready() -> void:
-	# TODO: listen for events ot connect and update the monster
+	# TODO: listen for events to connect and update the monster
 	return

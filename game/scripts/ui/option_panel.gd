@@ -19,8 +19,7 @@ func populate(labels: Array[StringEnabled]):
 		button.text = option
 		button.disabled = !labels[i].enabled
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		# ... and bind a listener to it to send a request. This will be listened-for in game_runner.gd
-		button.pressed.connect(func(): Events.request_option_selected.emit(mode, index))
+		# TODO: Connect the button pressed signal to something
 
 func clear():
 	# Clear all buttons. Note that signal listeners will be cleaned up on queue_free
