@@ -3,6 +3,7 @@ class_name Monster
 var species: SpeciesResource
 var hp: int
 var nickname: String
+var moves: Array[Move]
 
 var max_hp: int:
 	get: return species.max_hp

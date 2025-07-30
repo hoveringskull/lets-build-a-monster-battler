@@ -10,5 +10,14 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	monster.species = species
 	monster.hp = species.max_hp
 	monster.nickname = nickname
+	var moves: Array[Move] = []
+	
+	for move_resource in species.starter_moves:
+		var move = Move.new()
+		move.resource = move_resource
+		move.usages = move_resource.usage_max
+		moves.append(move)
+	
+	monster.moves = moves
 	
 	return monster

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MoveResource" load_steps=2 format=3 uid="uid://banxne14irujk"]
+
+[ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_cfgox"]
+
+[resource]
+script = ExtResource("1_cfgox")
+name = "Smack"
+usage_max = 25
+metadata/_custom_type_script = "uid://be1nhralvcl0t"

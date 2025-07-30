@@ -46,7 +46,12 @@ func setup_model():
 	return
 	
 func handle_request_menu_fight():
-	var labels: Array[StringEnabled] = [StringEnabled.new("A", true), StringEnabled.new("B", false)]
+	var labels: Array[StringEnabled] = []
+	
+	for move in game_state.player.current_monster.moves:
+		var label = StringEnabled.new(move.resource.name, move.usages > 0)
+		labels.append(label)
+	
 	Events.on_menu_fight.emit(labels)
 	
 func handle_request_menu_monsters():
