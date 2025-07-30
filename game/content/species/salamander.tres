@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SpeciesResource" load_steps=3 format=3 uid="uid://be2uu7m4yjrbv"]
+
+[ext_resource type="Texture2D" uid="uid://cvro04fgav35p" path="res://assets/art/monsters/salamander.png" id="1_6ogee"]
+[ext_resource type="Script" uid="uid://cfavn8hus8s4b" path="res://scripts/content/species_resource.gd" id="1_onk3r"]
+
+[resource]
+script = ExtResource("1_onk3r")
+image = ExtResource("1_6ogee")
+name = "Salamander"
+max_hp = 25
+metadata/_custom_type_script = "uid://cfavn8hus8s4b"
