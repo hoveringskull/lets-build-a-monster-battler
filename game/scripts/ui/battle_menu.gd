@@ -22,6 +22,7 @@ func _ready():
 	Events.on_menu_fight.connect(handle_select_fight)
 	Events.on_menu_select_monster.connect(handle_select_monsters)
 	Events.on_menu_items.connect(handle_select_items)
+	Events.on_menu_option_selected.connect(handle_select_main)
 
 	# Activate the main menu 
 	handle_select_main()

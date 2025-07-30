@@ -6,12 +6,14 @@ extends Node
 # Since RUN isn't a special menu, it does not get an entry here
 enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
 
-var game_state
+var game_state: GameState
 
 func _ready():
 	# Connect signal listeners
 	Events.request_menu_fight.connect(handle_request_menu_fight)
 	Events.request_menu_run.connect(handle_run)
+	Events.request_menu_monsters.connect(handle_request_menu_monsters)
+	Events.request_menu_option_by_index.connect(handle_request_menu_option_by_index)
 	Events.on_ui_ready.connect(setup_model)
 	
 func setup_model():
@@ -46,6 +48,20 @@ func setup_model():
 func handle_request_menu_fight():
 	var labels: Array[StringEnabled] = [StringEnabled.new("A", true), StringEnabled.new("B", false)]
 	Events.on_menu_fight.emit(labels)
+	
+func handle_request_menu_monsters():
+	var labels: Array[StringEnabled] = []
+	for monster in game_state.player.monsters:
+		labels.append(StringEnabled.new(monster.name,  monster.hp > 0))
+	Events.on_menu_select_monster.emit(labels)
+
+func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
+	# Just handling player case here
+	match(mode):
+		INTERACTION_MODE.MON:
+			TrainerController.add_trainer_monster_to_battle(game_state.player, index)
+	
+	Events.on_menu_option_selected.emit()
 
 func handle_run():
 	get_tree().quit()

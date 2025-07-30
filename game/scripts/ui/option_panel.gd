@@ -19,7 +19,7 @@ func populate(labels: Array[StringEnabled]):
 		button.text = option
 		button.disabled = !labels[i].enabled
 		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		# TODO: Connect the button pressed signal to something
+		button.pressed.connect(func(): Events.request_menu_option_by_index.emit(mode, index))
 
 func clear():
 	# Clear all buttons. Note that signal listeners will be cleaned up on queue_free
