@@ -9,8 +9,11 @@ enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
 func _ready():
 	# Connect signal listeners
 	Events.request_menu_fight.connect(handle_request_menu_fight)
-	
+	Events.request_menu_run.connect(handle_run)
 	
 func handle_request_menu_fight():
 	var labels: Array[StringEnabled] = [StringEnabled.new("A", true), StringEnabled.new("B", false)]
 	Events.on_menu_fight.emit(labels)
+
+func handle_run():
+	get_tree().quit()

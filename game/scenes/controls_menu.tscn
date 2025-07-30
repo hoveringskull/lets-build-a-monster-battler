@@ -28,7 +28,6 @@ item_menu = NodePath("items")
 mon_menu = NodePath("mons")
 
 [node name="main-controls" type="GridContainer" parent="menu"]
-visible = false
 layout_mode = 2
 offset_right = 95.0
 offset_bottom = 40.0
