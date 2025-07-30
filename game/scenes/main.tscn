@@ -37,6 +37,7 @@ layout_mode = 2
 
 [node name="mon_renderer_module2" parent="battle_renderer/left" instance=ExtResource("4_jkv2x")]
 layout_mode = 2
+your_pov = true
 
 [node name="controls_menu" parent="battle_renderer/left" instance=ExtResource("5_choun")]
 layout_mode = 2
