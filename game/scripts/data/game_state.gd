@@ -1,4 +1,10 @@
 class_name GameState
 
-var player_monster: Monster
-var opponent_monster: Monster
+var player: Trainer
+var opponent: Trainer
+
+var player_monster: Monster:
+	get: return player.current_monster
+
+var opponent_monster: Monster:
+	get: return opponent.current_monster
