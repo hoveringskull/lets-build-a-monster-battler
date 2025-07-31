@@ -4,7 +4,19 @@ class_name DoDamage extends TargetedEffect
 
 func _do(doer: Monster, source: Move, game_state: GameState):
 	var target = MonsterController.get_monster_opponent(doer)
-	var amt = base_damage
-	MonsterController.adjust_monster_hitpoints(target, -base_damage)
+	
+	var type_advantage_coefficient = MonsterType.get_type_advantage_coefficient(source.resource.type, target.species.type)
+		
+	var amt = base_damage * type_advantage_coefficient
+	MonsterController.adjust_monster_hitpoints(target, -amt)
+	
+	var effectiveness = MonsterType.get_type_effectiveness(source.resource.type, target.species.type)
+	
+	if effectiveness == MonsterType.Effectiveness.STRONG:
+		Events.request_log.emit("It's extra effective!")
+	elif effectiveness == MonsterType.Effectiveness.WEAK:
+		Events.request_log.emit("It's not very effective at all.")
+
+	
 	Events.request_log.emit("{doer_name} hits {target_name} for {amt} damage"\
 		.format({"doer_name": doer.name, "target_name": target.name, "amt": amt}))

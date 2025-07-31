@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MoveResource" load_steps=6 format=3 uid="uid://banxne14irujk"]
+[gd_resource type="Resource" script_class="MoveResource" load_steps=5 format=3 uid="uid://banxne14irujk"]
 
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_cfgox"]
 [ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_ibcd2"]
@@ -9,14 +9,10 @@ script = ExtResource("3_rvtjr")
 base_damage = 20
 metadata/_custom_type_script = "uid://d3725gvjhfjyb"
 
-[sub_resource type="Resource" id="Resource_rvtjr"]
-script = ExtResource("3_rvtjr")
-base_damage = 5
-metadata/_custom_type_script = "uid://d3725gvjhfjyb"
-
 [resource]
 script = ExtResource("1_cfgox")
 name = "Smack"
 usage_max = 25
-use_effects = Array[ExtResource("2_ibcd2")]([SubResource("Resource_apfif"), SubResource("Resource_rvtjr")])
+use_effects = Array[ExtResource("2_ibcd2")]([SubResource("Resource_apfif")])
+type = 0
 metadata/_custom_type_script = "uid://be1nhralvcl0t"
