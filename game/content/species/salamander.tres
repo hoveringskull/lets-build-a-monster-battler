@@ -12,4 +12,5 @@ image = ExtResource("1_6ogee")
 name = "Salamander"
 max_hp = 25
 starter_moves = Array[ExtResource("3_tlkrm")]([ExtResource("4_tjeay"), ExtResource("5_gu56f")])
+type = 3
 metadata/_custom_type_script = "uid://cfavn8hus8s4b"

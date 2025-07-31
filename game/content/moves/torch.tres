@@ -1,9 +1,18 @@
-[gd_resource type="Resource" script_class="MoveResource" load_steps=2 format=3 uid="uid://boc11cttbfuhc"]
+[gd_resource type="Resource" script_class="MoveResource" load_steps=5 format=3 uid="uid://boc11cttbfuhc"]
 
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_dwguc"]
+[ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_h48l8"]
+[ext_resource type="Script" uid="uid://d3725gvjhfjyb" path="res://scripts/content/targeted_effects/do_damage.gd" id="3_yx2ie"]
+
+[sub_resource type="Resource" id="Resource_teexd"]
+script = ExtResource("3_yx2ie")
+base_damage = 30
+metadata/_custom_type_script = "uid://d3725gvjhfjyb"
 
 [resource]
 script = ExtResource("1_dwguc")
 name = "Torch"
 usage_max = 20
+use_effects = Array[ExtResource("2_h48l8")]([SubResource("Resource_teexd")])
+type = 3
 metadata/_custom_type_script = "uid://be1nhralvcl0t"
