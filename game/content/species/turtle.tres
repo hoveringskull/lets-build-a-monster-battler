@@ -8,7 +8,10 @@
 script = ExtResource("1_mo2eo")
 image = ExtResource("1_0qrp4")
 name = "Turtle"
-max_hp = 30
 starter_moves = Array[ExtResource("3_wkrva")]([])
 type = 2
+base_max_hp = 25
+base_attack = 4
+base_defence = 7
+base_speed = 2
 metadata/_custom_type_script = "uid://cfavn8hus8s4b"

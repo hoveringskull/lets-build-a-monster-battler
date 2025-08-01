@@ -15,4 +15,5 @@ name = "Torch"
 usage_max = 20
 use_effects = Array[ExtResource("2_h48l8")]([SubResource("Resource_teexd")])
 type = 3
+use_message = "{user_name} attacks with a big {move_name}"
 metadata/_custom_type_script = "uid://be1nhralvcl0t"
