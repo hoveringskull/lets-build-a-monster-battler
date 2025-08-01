@@ -13,3 +13,7 @@ var image: Texture2D:
 	
 var name: String:
 	get: return nickname if nickname else species.name
+
+var type: MonsterType.Type:
+	get: return species.type
+

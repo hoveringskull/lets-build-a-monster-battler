@@ -59,6 +59,7 @@ layout_mode = 2
 [node name="you" parent="battle_renderer/tabs" instance=ExtResource("8_eb6dy")]
 visible = false
 layout_mode = 2
+your_monster = true
 
 [node name="them" parent="battle_renderer/tabs" instance=ExtResource("8_eb6dy")]
 visible = false
