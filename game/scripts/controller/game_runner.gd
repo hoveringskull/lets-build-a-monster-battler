@@ -17,6 +17,10 @@ func _ready():
 	Events.request_menu_option_by_index.connect(handle_request_menu_option_by_index)
 	Events.on_ui_ready.connect(setup_model)
 	
+func _process(_delta: float):
+	if !game_state.is_player_turn:
+		run_ai_turn()
+	
 func setup_model():
 	game_state = GameState.new()
 	rng = RandomNumberGenerator.new()
@@ -31,8 +35,10 @@ func setup_model():
 	var monster2 = MonsterController.create_monster(species_turtle, "Reggie")
 	var monster3 = MonsterController.create_monster(species_dino, "Steven")
 	
-	game_state.player = TrainerController.create_trainer([monster1, monster2], true)
-	game_state.opponent = TrainerController.create_trainer([monster3], false)
+	game_state.player = TrainerController.create_trainer([monster2, monster3], true)
+	game_state.opponent = TrainerController.create_trainer([monster1], false)
+	
+	game_state.is_player_turn = game_state.player_monster.speed >= game_state.opponent_monster.speed
 	return
 	
 func handle_request_menu_fight():
@@ -68,3 +74,17 @@ func handle_run():
 	timer.wait_time = 2.0
 	timer.timeout.connect(func(): get_tree().quit())
 	timer.start()
+	
+func on_turn_ended():
+	game_state.is_player_turn = !game_state.is_player_turn
+
+func run_ai_turn():
+	var legal_move_indices = game_state.opponent_monster.get_legal_move_indices()
+	if legal_move_indices.size() <= 0:
+		# TODO: allow some sort of struggle move?
+		Events.request_log.emit("Can't act! No moves.")
+		on_turn_ended()
+	else:
+		var move_index = legal_move_indices.pick_random()
+		MonsterController.use_monster_move_at_index(game_state.opponent_monster, move_index)
+	

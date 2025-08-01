@@ -43,6 +43,8 @@ func use_monster_move_at_index(monster: Monster, index: int):
 		if effect._should_do(hit):
 			effect._do(monster, move, game_state)
 	
+	GameRunner.on_turn_ended()
+	
 func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	var monster = Monster.new()
 	monster.species = species
@@ -51,6 +53,8 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	var moves: Array[Move] = []
 	
 	for move_resource in species.starter_moves:
+		if move_resource == null:
+			continue
 		var move = Move.new()
 		move.resource = move_resource
 		move.usages = move_resource.usage_max

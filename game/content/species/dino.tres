@@ -8,7 +8,7 @@
 script = ExtResource("1_pqx4l")
 image = ExtResource("1_htcjd")
 name = "Dino"
-starter_moves = Array[ExtResource("3_gfe2g")]([])
+starter_moves = Array[ExtResource("3_gfe2g")]([null])
 type = 4
 base_max_hp = 23
 base_attack = 6

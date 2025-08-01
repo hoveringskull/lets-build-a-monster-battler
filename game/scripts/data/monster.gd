@@ -25,7 +25,15 @@ var defence: int:
 	
 var speed: int:
 	get: return species.base_speed
+
+func get_legal_move_indices() -> Array[int]:
+	var legal_indices: Array[int] = []
+	for i in range(0, moves.size()):
+		if moves[i] and moves[i].usages > 0:
+			legal_indices.append(i)
+	return legal_indices
 	
+
 func dump_state():
 	return "Name: {name}\n Hp:({hp}/{max_hp})\n ATK: {attack} \n DEF: {defence} \n SPD: {speed}"\
 		.format({
