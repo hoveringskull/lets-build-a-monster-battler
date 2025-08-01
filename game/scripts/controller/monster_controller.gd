@@ -63,3 +63,10 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	monster.moves = moves
 	
 	return monster
+
+func instantiate_condition_on_monster(monster: Monster, condition_resource: ConditionResource):
+	var condition = Condition.new()
+	condition.resource = condition_resource
+	monster.conditions.append(condition)
+	
+	Events.on_monster_updated.emit(monster)

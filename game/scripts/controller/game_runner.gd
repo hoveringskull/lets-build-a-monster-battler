@@ -35,8 +35,8 @@ func setup_model():
 	var monster2 = MonsterController.create_monster(species_turtle, "Reggie")
 	var monster3 = MonsterController.create_monster(species_dino, "Steven")
 	
-	game_state.player = TrainerController.create_trainer([monster2, monster3], true)
-	game_state.opponent = TrainerController.create_trainer([monster1], false)
+	game_state.player = TrainerController.create_trainer([monster1, monster3], true)
+	game_state.opponent = TrainerController.create_trainer([monster2], false)
 	
 	game_state.is_player_turn = game_state.player_monster.speed >= game_state.opponent_monster.speed
 	return

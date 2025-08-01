@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cvro04fgav35p" path="res://assets/art/monsters/salamander.png" id="1_6ogee"]
 [ext_resource type="Script" uid="uid://cfavn8hus8s4b" path="res://scripts/content/species_resource.gd" id="1_onk3r"]
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="3_tlkrm"]
-[ext_resource type="Resource" uid="uid://banxne14irujk" path="res://content/moves/smack.tres" id="4_tjeay"]
+[ext_resource type="Resource" uid="uid://c4bds7beo1ccw" path="res://content/moves/knife_dance.tres" id="4_tjeay"]
 [ext_resource type="Resource" uid="uid://boc11cttbfuhc" path="res://content/moves/torch.tres" id="5_gu56f"]
 [ext_resource type="Resource" uid="uid://b25fucqarqclv" path="res://content/moves/regenerate.tres" id="6_tjeay"]
 
