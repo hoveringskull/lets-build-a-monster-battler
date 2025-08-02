@@ -1,23 +1,35 @@
-[gd_resource type="Resource" script_class="MoveResource" load_steps=6 format=3 uid="uid://c4bds7beo1ccw"]
+[gd_resource type="Resource" script_class="MoveResource" load_steps=8 format=3 uid="uid://c4bds7beo1ccw"]
 
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_jnbif"]
 [ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_bmcg1"]
 [ext_resource type="Script" uid="uid://brraqllr4ntpa" path="res://scripts/content/targeted_effects/add_condition.gd" id="3_bmcg1"]
 [ext_resource type="Resource" uid="uid://cb8jvi2bsf2vm" path="res://content/conditions/attack_boost.tres" id="3_y2euw"]
+[ext_resource type="Script" uid="uid://d3725gvjhfjyb" path="res://scripts/content/targeted_effects/do_damage.gd" id="5_jw5y1"]
 
 [sub_resource type="Resource" id="Resource_y2euw"]
 script = ExtResource("3_bmcg1")
 condition_resource = ExtResource("3_y2euw")
+chance_to_apply = 1.0
 outcome_filter = 2
 target_self = true
 metadata/_custom_type_script = "uid://brraqllr4ntpa"
+
+[sub_resource type="Resource" id="Resource_vfad7"]
+script = ExtResource("5_jw5y1")
+base_damage = 20
+ignore_stats = false
+damage_log_string = "{doer_name} hits {target_name} for {amt} damage"
+outcome_filter = 3
+target_self = false
+metadata/_custom_type_script = "uid://d3725gvjhfjyb"
 
 [resource]
 script = ExtResource("1_jnbif")
 name = "Knife Dance"
 usage_max = 10
-use_effects = Array[ExtResource("2_bmcg1")]([SubResource("Resource_y2euw")])
+use_effects = Array[ExtResource("2_bmcg1")]([SubResource("Resource_y2euw"), SubResource("Resource_vfad7")])
 type = 0
 use_message = "{user_name} uses {move_name}"
 base_accuracy = 1.0
+move_priority = 0
 metadata/_custom_type_script = "uid://be1nhralvcl0t"

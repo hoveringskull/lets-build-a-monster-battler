@@ -31,8 +31,10 @@ func adjust_monster_hitpoints(monster: Monster, amount: int):
 	# TODO: add check for fainting
 	Events.on_monster_updated.emit(monster)
 
-func use_monster_move_at_index(monster: Monster, index: int):
-	var move = monster.moves[index]
+func get_monster_move_at_index(monster: Monster, index: int) -> Move:
+	return monster.moves[index]
+
+func use_monster_move(monster: Monster, move: Move):
 	if move.usages <= 0:
 		return
 
@@ -42,7 +44,6 @@ func use_monster_move_at_index(monster: Monster, index: int):
 	if monster.move_blocked:
 		Events.request_log.emit("But they can't move!")
 		monster.move_blocked = false
-		GameRunner.on_turn_ended()
 		return
 
 	move.usages -= 1
@@ -51,11 +52,14 @@ func use_monster_move_at_index(monster: Monster, index: int):
 	if !hit:
 		Events.request_log.emit("But it misses")
 	
-	for effect in move.resource.use_effects:
-		if effect._should_do(hit):
-			effect._do(monster, move, game_state)
+	var crit = rng.randf() < Calculations.get_crit_chance(monster)
+	if crit:
+		Events.request_log.emit("Critical hit!")
 	
-	GameRunner.on_turn_ended()
+	for effect in move.resource.use_effects:
+		if effect._should_do(hit, crit):
+			effect._do(monster, move, game_state, crit)
+	
 	
 func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	var monster = Monster.new()
@@ -74,6 +78,10 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	
 	monster.moves = moves
 	
+	monster.fallback_move = Move.new()
+	monster.fallback_move.resource = preload("res://content/moves/struggle.tres")
+	monster.fallback_move.usages = 999
+
 	return monster
 
 func instantiate_condition_on_monster(monster: Monster, condition_resource: ConditionResource):
@@ -88,6 +96,21 @@ func instantiate_condition_on_monster(monster: Monster, condition_resource: Cond
 	monster.conditions.append(condition)
 	
 	Events.on_monster_updated.emit(monster)
+	
+func do_monster_turn(monster: Monster):
+	on_turn_begun(monster)
+	use_monster_move(monster, monster.chosen_move)
+	monster.chosen_move = null
+	return
+
+func on_turn_begun(monster: Monster):
+	for condition in monster.conditions:
+		for effect in condition.resource.on_begin_turn_effects:
+			effect._do(monster, condition, game_state, false)
+		condition.duration_remaining -= 1
+		if condition.duration_remaining <= 0:
+			end_condition(monster, condition)
+
 
 func end_condition(monster: Monster, condition: Condition):
 	monster.conditions.remove_at(monster.conditions.find(condition))

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="MoveResource" load_steps=6 format=3 uid="uid://bfys15owjs24j"]
+
+[ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_yh6g2"]
+[ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_1hdul"]
+[ext_resource type="Script" uid="uid://d3725gvjhfjyb" path="res://scripts/content/targeted_effects/do_damage.gd" id="3_mhxif"]
+
+[sub_resource type="Resource" id="Resource_apfif"]
+script = ExtResource("3_mhxif")
+base_damage = 15
+ignore_stats = false
+damage_log_string = "{doer_name} hits {target_name} for {amt} damage"
+outcome_filter = 2
+target_self = false
+metadata/_custom_type_script = "uid://d3725gvjhfjyb"
+
+[sub_resource type="Resource" id="Resource_yh6g2"]
+script = ExtResource("3_mhxif")
+base_damage = 5
+ignore_stats = false
+damage_log_string = "{doer_name} hits {target_name} for {amt} damage"
+outcome_filter = 0
+target_self = true
+metadata/_custom_type_script = "uid://d3725gvjhfjyb"
+
+[resource]
+script = ExtResource("1_yh6g2")
+name = "Struggle"
+usage_max = 999
+use_effects = Array[ExtResource("2_1hdul")]([SubResource("Resource_apfif"), SubResource("Resource_yh6g2")])
+type = 0
+use_message = "{user_name} uses {move_name}"
+base_accuracy = 0.8
+metadata/_custom_type_script = "uid://be1nhralvcl0t"

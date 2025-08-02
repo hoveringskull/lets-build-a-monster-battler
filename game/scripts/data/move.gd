@@ -15,6 +15,9 @@ var use_message: String:
 var base_accuracy: float:
 	get: return resource.base_accuracy
 
+var move_priority: int:
+	get: return resource.move_priority
+
 # Used for duck-typing in TargetedEffect
 func get_type() -> MonsterType.Type:
 	return type

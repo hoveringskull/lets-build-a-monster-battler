@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MoveResource" load_steps=5 format=3 uid="uid://caxfbswknuym6"]
+
+[ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_lbsi5"]
+[ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_fjdo5"]
+[ext_resource type="Script" uid="uid://d3725gvjhfjyb" path="res://scripts/content/targeted_effects/do_damage.gd" id="3_fjdo5"]
+
+[sub_resource type="Resource" id="Resource_e77o3"]
+script = ExtResource("3_fjdo5")
+base_damage = 10
+ignore_stats = false
+damage_log_string = "{doer_name} hits {target_name} for {amt} damage"
+outcome_filter = 0
+target_self = false
+metadata/_custom_type_script = "uid://d3725gvjhfjyb"
+
+[resource]
+script = ExtResource("1_lbsi5")
+name = "Fast Attack"
+usage_max = 10
+use_effects = Array[ExtResource("2_fjdo5")]([SubResource("Resource_e77o3")])
+type = 0
+use_message = "{user_name} uses {move_name}"
+base_accuracy = 0.9
+move_priority = 1
+metadata/_custom_type_script = "uid://be1nhralvcl0t"

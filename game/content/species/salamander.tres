@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="3_tlkrm"]
 [ext_resource type="Resource" uid="uid://c4bds7beo1ccw" path="res://content/moves/knife_dance.tres" id="4_tjeay"]
 [ext_resource type="Resource" uid="uid://bqyhwmo1rckwv" path="res://content/moves/paralyzing_sting.tres" id="5_tjeay"]
-[ext_resource type="Resource" uid="uid://bq5yym1l6u2dj" path="res://content/moves/poison_sting.tres" id="6_tjeay"]
+[ext_resource type="Resource" uid="uid://caxfbswknuym6" path="res://content/moves/fast_attack.tres" id="6_tjeay"]
 
 [resource]
 script = ExtResource("1_onk3r")
@@ -16,5 +16,5 @@ type = 3
 base_max_hp = 20
 base_attack = 7
 base_defence = 3
-base_speed = 5
+base_speed = 50
 metadata/_custom_type_script = "uid://cfavn8hus8s4b"
