@@ -5,6 +5,7 @@ var hp: int
 var nickname: String
 var moves: Array[Move]
 var conditions: Array[Condition]
+var move_blocked
 
 var image: Texture2D:
 	get: return species.image
@@ -42,13 +43,19 @@ func sum_condition_stats_for_code(code: Stat.Code):
 				sum += stat_modifier.modifier
 	return sum
 
+func get_condition_string():
+	if conditions.size() == 0:
+		return "Lv1"
+	else:
+		return conditions[0].resource.short_name
+
 func dump_state():
 	var condition_string = ""
 	
 	for condition in conditions:
-		condition_string += condition.name + "\n"
+		condition_string += "{name} - ({remaining})\n".format({"name": condition.name, "remaining": condition.duration_remaining})
 	
-	return "Name: {name}\n Hp:({hp}/{max_hp})\n ATK: {attack} \n DEF: {defence} \n SPD: {speed} \n Conditions:\n {conditions}"\
+	return "Name: {name}\nHp:({hp}/{max_hp})\nATK: {attack} \nDEF: {defence} \nSPD: {speed} \nConditions:\n{conditions}"\
 		.format({
 			"name": name,
 			"attack": attack,

@@ -1,8 +1,25 @@
-[gd_resource type="Resource" script_class="ConditionResource" load_steps=2 format=3 uid="uid://bgdf0w8mhbuv"]
+[gd_resource type="Resource" script_class="ConditionResource" load_steps=6 format=3 uid="uid://bgdf0w8mhbuv"]
 
 [ext_resource type="Script" uid="uid://d1ee3iw02dnap" path="res://scripts/content/condition_resource.gd" id="1_2addo"]
+[ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="1_p3wge"]
+[ext_resource type="Script" uid="uid://d3725gvjhfjyb" path="res://scripts/content/targeted_effects/do_damage.gd" id="2_48m4k"]
+[ext_resource type="Script" uid="uid://yvyyjadke26x" path="res://scripts/content/stat_modifier.gd" id="4_d1igp"]
+
+[sub_resource type="Resource" id="Resource_p3wge"]
+script = ExtResource("2_48m4k")
+base_damage = 5
+ignore_stats = true
+damage_log_string = "{target_name} is hurt by poison for {amt}"
+outcome_filter = 2
+target_self = true
+metadata/_custom_type_script = "uid://d3725gvjhfjyb"
 
 [resource]
 script = ExtResource("1_2addo")
 name = "Poison"
+stat_modifiers = Array[ExtResource("4_d1igp")]([])
+on_begin_turn_effects = Array[ExtResource("1_p3wge")]([SubResource("Resource_p3wge")])
+duration = 4
+max_stacks = 1
+short_name = "PSN"
 metadata/_custom_type_script = "uid://d1ee3iw02dnap"

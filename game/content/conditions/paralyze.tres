@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ConditionResource" load_steps=6 format=3 uid="uid://djyfygn4kccb6"]
+
+[ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="1_hufe4"]
+[ext_resource type="Script" uid="uid://d1ee3iw02dnap" path="res://scripts/content/condition_resource.gd" id="2_8qkgd"]
+[ext_resource type="Script" uid="uid://dpp5rhsu17euy" path="res://scripts/content/targeted_effects/block_move.gd" id="2_fyrwd"]
+[ext_resource type="Script" uid="uid://yvyyjadke26x" path="res://scripts/content/stat_modifier.gd" id="3_fyrwd"]
+
+[sub_resource type="Resource" id="Resource_jha0u"]
+script = ExtResource("2_fyrwd")
+chance_to_block_move = 0.5
+outcome_filter = 2
+target_self = true
+metadata/_custom_type_script = "uid://dpp5rhsu17euy"
+
+[resource]
+script = ExtResource("2_8qkgd")
+name = "Paralyze"
+stat_modifiers = Array[ExtResource("3_fyrwd")]([])
+on_begin_turn_effects = Array[ExtResource("1_hufe4")]([SubResource("Resource_jha0u")])
+duration = 5
+max_stacks = 1
+short_name = "PAR"
+metadata/_custom_type_script = "uid://d1ee3iw02dnap"

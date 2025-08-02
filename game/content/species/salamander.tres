@@ -4,14 +4,14 @@
 [ext_resource type="Script" uid="uid://cfavn8hus8s4b" path="res://scripts/content/species_resource.gd" id="1_onk3r"]
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="3_tlkrm"]
 [ext_resource type="Resource" uid="uid://c4bds7beo1ccw" path="res://content/moves/knife_dance.tres" id="4_tjeay"]
-[ext_resource type="Resource" uid="uid://boc11cttbfuhc" path="res://content/moves/torch.tres" id="5_gu56f"]
-[ext_resource type="Resource" uid="uid://b25fucqarqclv" path="res://content/moves/regenerate.tres" id="6_tjeay"]
+[ext_resource type="Resource" uid="uid://bqyhwmo1rckwv" path="res://content/moves/paralyzing_sting.tres" id="5_tjeay"]
+[ext_resource type="Resource" uid="uid://bq5yym1l6u2dj" path="res://content/moves/poison_sting.tres" id="6_tjeay"]
 
 [resource]
 script = ExtResource("1_onk3r")
 image = ExtResource("1_6ogee")
 name = "Salamander"
-starter_moves = Array[ExtResource("3_tlkrm")]([ExtResource("4_tjeay"), ExtResource("5_gu56f"), ExtResource("6_tjeay")])
+starter_moves = Array[ExtResource("3_tlkrm")]([ExtResource("4_tjeay"), ExtResource("5_tjeay"), ExtResource("6_tjeay")])
 type = 3
 base_max_hp = 20
 base_attack = 7

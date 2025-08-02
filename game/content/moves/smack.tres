@@ -7,8 +7,10 @@
 [sub_resource type="Resource" id="Resource_apfif"]
 script = ExtResource("3_rvtjr")
 base_damage = 12
+ignore_stats = false
+damage_log_string = "{doer_name} hits {target_name} for {amt} damage"
 outcome_filter = 2
-target_self = true
+target_self = false
 metadata/_custom_type_script = "uid://d3725gvjhfjyb"
 
 [resource]

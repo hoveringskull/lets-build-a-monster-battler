@@ -2,7 +2,7 @@ class_name DoHeal extends TargetedEffect
 
 @export var base_heal: int
 
-func _do(doer: Monster, source: Move, game_state: GameState):
+func _do(doer: Monster, source: Object, game_state: GameState):
 	var target = doer if target_self else MonsterController.get_monster_opponent(doer)
 			
 	var amt = base_heal

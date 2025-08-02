@@ -9,7 +9,7 @@ enum OutcomeFilter {
 @export var outcome_filter: OutcomeFilter
 @export var target_self: bool
 
-func _do(doer: Monster, source: Move, game_state: GameState):
+func _do(doer: Monster, source: Object, game_state: GameState):
 	return
 
 func _should_do(is_hit: bool) -> bool:
