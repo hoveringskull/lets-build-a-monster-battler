@@ -7,6 +7,8 @@ signal request_menu_back
 signal request_menu_items
 signal request_menu_run
 signal request_menu_option_by_index
+signal request_restart_game
+signal request_quit
 
 # Events sent from controllers 
 signal on_game_over

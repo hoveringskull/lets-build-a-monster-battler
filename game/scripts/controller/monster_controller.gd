@@ -28,18 +28,28 @@ func get_current_monster() -> Monster:
 func adjust_monster_hitpoints(monster: Monster, amount: int):
 	monster.hp = clamp(monster.hp + amount, 0, monster.max_hp)
 	
-	# TODO: add check for fainting
+	if monster.hp == 0:
+		faint_monster(monster)
+
 	Events.on_monster_updated.emit(monster)
+
+func faint_monster(monster: Monster):
+	return
 
 func get_monster_move_at_index(monster: Monster, index: int) -> Move:
 	return monster.moves[index]
 
 func use_monster_move(monster: Monster, move: Move):
-	if move.usages <= 0:
+	if move.usages <= 0 or monster.hp == 0:
 		return
 
 	var use_string = move.use_message.format({"user_name": monster.name, "move_name": move.name})
 	Events.request_log.emit(use_string)
+
+	var opponent = get_monster_opponent(monster)
+	if opponent.hp == 0:
+		monster.move_blocked = false
+		return
 
 	if monster.move_blocked:
 		Events.request_log.emit("But they can't move!")
@@ -104,6 +114,8 @@ func do_monster_turn(monster: Monster):
 	return
 
 func on_turn_begun(monster: Monster):
+	if monster.hp == 0:
+		return
 	for condition in monster.conditions:
 		for effect in condition.resource.on_begin_turn_effects:
 			effect._do(monster, condition, game_state, false)

@@ -7,7 +7,10 @@ extends PanelContainer
 @export var label: Label
 
 func _ready():
-	# TODO: Connect up listeners here to show and bind events
+	Events.on_game_over.connect(game_over)
+	quit.pressed.connect(func(): Events.request_quit.emit())
+	restart.pressed.connect(func(): Events.request_restart_game.emit())
+	Events.on_new_game_state_created.connect(hide)
 	hide()
 	
 func game_over(win: bool):

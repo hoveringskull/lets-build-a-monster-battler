@@ -5,6 +5,7 @@ extends ScrollContainer
 func _ready():
 	# Connect signal listeners
 	Events.request_log.connect(log)
+	Events.on_new_game_state_created.connect(clear)
 	
 
 func log(text: String):
@@ -19,5 +20,5 @@ func scroll_bottom():
 
 
 func clear():
-	for child in get_children():
+	for child in content_container.get_children():
 		child.queue_free()

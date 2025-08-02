@@ -16,5 +16,5 @@ type = 3
 base_max_hp = 20
 base_attack = 7
 base_defence = 3
-base_speed = 50
+base_speed = 5
 metadata/_custom_type_script = "uid://cfavn8hus8s4b"

@@ -23,6 +23,8 @@ func _ready():
 	Events.on_menu_select_monster.connect(handle_select_monsters)
 	Events.on_menu_items.connect(handle_select_items)
 	Events.on_menu_option_selected.connect(handle_select_main)
+	Events.on_game_over.connect(func(_win): hide())
+	Events.on_new_game_state_created.connect(show)
 
 	# Activate the main menu 
 	handle_select_main()

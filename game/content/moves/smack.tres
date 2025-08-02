@@ -6,10 +6,11 @@
 
 [sub_resource type="Resource" id="Resource_apfif"]
 script = ExtResource("3_rvtjr")
-base_damage = 12
+base_damage = 20
 ignore_stats = false
 damage_log_string = "{doer_name} hits {target_name} for {amt} damage"
-outcome_filter = 2
+critical_hit_damage_coefficient = 1.5
+outcome_filter = 0
 target_self = false
 metadata/_custom_type_script = "uid://d3725gvjhfjyb"
 
@@ -21,4 +22,5 @@ use_effects = Array[ExtResource("2_ibcd2")]([SubResource("Resource_apfif")])
 type = 0
 use_message = "{user_name} uses {move_name}"
 base_accuracy = 0.5
+move_priority = 0
 metadata/_custom_type_script = "uid://be1nhralvcl0t"
