@@ -21,6 +21,7 @@ Events="*res://scripts/infra/events.gd"
 GameRunner="*res://scripts/controller/game_runner.gd"
 MonsterController="*res://scripts/controller/monster_controller.gd"
 TrainerController="*res://scripts/controller/trainer_controller.gd"
+SfxPlayer="*res://scripts/avfx/sfx_player.gd"
 
 [debug]
 

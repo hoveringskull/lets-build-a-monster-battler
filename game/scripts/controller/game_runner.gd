@@ -57,6 +57,20 @@ func setup_model():
 	
 	current_phase = PHASE.AWAIT_INPUT
 	
+	var clip = preload("res://assets/sound/Game_SFX_by_OwlishMedia/birdchirp2.wav")
+	Events.on_avfx_sfx.emit(clip)
+	
+	var v2fs: Array[Vector2Float] = []
+	var v2f1 = Vector2Float.new()
+	v2f1.v2 = Vector2(-20, 5)
+	v2f1.f = 0.05
+	var v2f2 = Vector2Float.new()
+	v2f2.v2 = Vector2(10, -5)
+	v2f2.f = 0.1
+	v2fs.append(v2f1)
+	v2fs.append(v2f2)
+	Events.on_avfx_move.emit(game_state.player_monster, v2fs)
+
 func handle_request_menu_fight():
 	if current_phase != PHASE.AWAIT_INPUT:
 		return
