@@ -9,3 +9,6 @@ func _init(res, targ):
 
 func execute():
 	resource._do(self)
+
+func finish():
+	AVFXManager.remove_effect(self)

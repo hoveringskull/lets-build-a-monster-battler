@@ -22,6 +22,7 @@ GameRunner="*res://scripts/controller/game_runner.gd"
 MonsterController="*res://scripts/controller/monster_controller.gd"
 TrainerController="*res://scripts/controller/trainer_controller.gd"
 SfxPlayer="*res://scripts/avfx/sfx_player.gd"
+AVFXManager="*res://scripts/avfx/avfx_manager.gd"
 
 [debug]
 

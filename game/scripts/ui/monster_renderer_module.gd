@@ -44,8 +44,8 @@ func maybe_bind_monster(monster: Monster, is_player_monster: bool):
 		move_child(frame, 0 if is_player_monster else 1)
 		update()
 		
-func move_monster(monster: Monster, v2fs: Array[Vector2Float]):
-	if monster != bound_monster:
+func move_monster(avfx_instance: AVFXInstance, v2fs: Array[Vector2Float]):
+	if avfx_instance.target != bound_monster:
 		return
 	
 	var tween = get_tree().create_tween()
@@ -54,6 +54,7 @@ func move_monster(monster: Monster, v2fs: Array[Vector2Float]):
 		tween.tween_property(sprite, "offset", v2f.v2, v2f.f)
 	
 	tween.tween_property(sprite, "offset", Vector2.ZERO, 0.1)
+	tween.tween_callback(avfx_instance.finish)
 
 func update():
 	if bound_monster == null:

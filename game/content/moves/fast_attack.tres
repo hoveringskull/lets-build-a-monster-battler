@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MoveResource" load_steps=14 format=3 uid="uid://caxfbswknuym6"]
+[gd_resource type="Resource" script_class="MoveResource" load_steps=17 format=3 uid="uid://caxfbswknuym6"]
 
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_lbsi5"]
 [ext_resource type="Script" uid="uid://bhld0rqw1bpqt" path="res://scripts/avfx/avfx_resources/avfx_resource.gd" id="2_cfn24"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://b7wrn3p7ocmc2" path="res://scripts/avfx/avfx_resources/avfx_play_sfx.gd" id="4_bstxr"]
 [ext_resource type="Script" uid="uid://bw3jhmmg3l56t" path="res://scripts/content/vector2_float.gd" id="5_bstxr"]
 [ext_resource type="Script" uid="uid://bt6jannfny5lb" path="res://scripts/avfx/avfx_resources/avfx_move_monster.gd" id="6_xq2r4"]
+[ext_resource type="Script" uid="uid://dubnub5ca5r2n" path="res://scripts/avfx/avfx_resources/avfx_projectile.gd" id="7_xqgum"]
+[ext_resource type="Texture2D" uid="uid://cg40gg4c368yy" path="res://assets/art/projectile/projectile_default.png" id="8_fxsml"]
 
 [sub_resource type="Resource" id="Resource_xq2r4"]
 script = ExtResource("4_bstxr")
@@ -18,7 +20,7 @@ metadata/_custom_type_script = "uid://b7wrn3p7ocmc2"
 [sub_resource type="Resource" id="Resource_xqgum"]
 script = ExtResource("5_bstxr")
 v2 = Vector2(-30, 0)
-f = 0.05
+f = 5.0
 metadata/_custom_type_script = "uid://bw3jhmmg3l56t"
 
 [sub_resource type="Resource" id="Resource_fxsml"]
@@ -32,6 +34,12 @@ script = ExtResource("6_xq2r4")
 offsets_by_duration = Array[ExtResource("5_bstxr")]([SubResource("Resource_xqgum"), SubResource("Resource_fxsml")])
 target_self = true
 metadata/_custom_type_script = "uid://bt6jannfny5lb"
+
+[sub_resource type="Resource" id="Resource_3bm2p"]
+script = ExtResource("7_xqgum")
+sprite = ExtResource("8_fxsml")
+target_self = false
+metadata/_custom_type_script = "uid://dubnub5ca5r2n"
 
 [sub_resource type="Resource" id="Resource_e77o3"]
 script = ExtResource("3_fjdo5")
@@ -52,5 +60,5 @@ type = 0
 use_message = "{user_name} uses {move_name}"
 base_accuracy = 0.9
 move_priority = 1
-use_avfx = Array[ExtResource("2_cfn24")]([SubResource("Resource_xq2r4"), SubResource("Resource_c6loi")])
+use_avfx = Array[ExtResource("2_cfn24")]([SubResource("Resource_xq2r4"), SubResource("Resource_c6loi"), SubResource("Resource_3bm2p")])
 metadata/_custom_type_script = "uid://be1nhralvcl0t"

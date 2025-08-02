@@ -1,8 +1,23 @@
-[gd_resource type="Resource" script_class="MoveResource" load_steps=5 format=3 uid="uid://banxne14irujk"]
+[gd_resource type="Resource" script_class="MoveResource" load_steps=10 format=3 uid="uid://banxne14irujk"]
 
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_cfgox"]
+[ext_resource type="Script" uid="uid://bhld0rqw1bpqt" path="res://scripts/avfx/avfx_resources/avfx_resource.gd" id="2_23jds"]
 [ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_ibcd2"]
+[ext_resource type="Script" uid="uid://bw3jhmmg3l56t" path="res://scripts/content/vector2_float.gd" id="3_5jvuc"]
 [ext_resource type="Script" uid="uid://d3725gvjhfjyb" path="res://scripts/content/targeted_effects/do_damage.gd" id="3_rvtjr"]
+[ext_resource type="Script" uid="uid://bt6jannfny5lb" path="res://scripts/avfx/avfx_resources/avfx_move_monster.gd" id="4_2sypg"]
+
+[sub_resource type="Resource" id="Resource_4mfxq"]
+script = ExtResource("3_5jvuc")
+v2 = Vector2(20, 0)
+f = 1.0
+metadata/_custom_type_script = "uid://bw3jhmmg3l56t"
+
+[sub_resource type="Resource" id="Resource_2w00m"]
+script = ExtResource("4_2sypg")
+offsets_by_duration = Array[ExtResource("3_5jvuc")]([SubResource("Resource_4mfxq")])
+target_self = true
+metadata/_custom_type_script = "uid://bt6jannfny5lb"
 
 [sub_resource type="Resource" id="Resource_apfif"]
 script = ExtResource("3_rvtjr")
@@ -23,4 +38,5 @@ type = 0
 use_message = "{user_name} uses {move_name}"
 base_accuracy = 0.5
 move_priority = 0
+use_avfx = Array[ExtResource("2_23jds")]([SubResource("Resource_2w00m")])
 metadata/_custom_type_script = "uid://be1nhralvcl0t"

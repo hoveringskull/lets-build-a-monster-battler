@@ -6,7 +6,7 @@ extends Node
 # Since RUN isn't a special menu, it does not get an entry here
 enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
 
-enum PHASE {AWAIT_INPUT, RESOLVE_ROUND, GAME_OVER}
+enum PHASE {AWAIT_INPUT, RESOLVE_ROUND, AWAIT_AVFX, GAME_OVER}
 
 var current_phase: PHASE
 
@@ -22,6 +22,8 @@ func _ready():
 	Events.request_menu_option_by_index.connect(handle_request_menu_option_by_index)
 	Events.request_restart_game.connect(handle_restart)
 	Events.request_quit.connect(handle_quit)
+	Events.on_avfx_block_start.connect(func(): current_phase = PHASE.AWAIT_AVFX)
+	Events.on_avfx_block_end.connect(func(): current_phase = PHASE.AWAIT_INPUT)
 	
 	Events.on_ui_ready.connect(setup_model)
 	
@@ -35,6 +37,8 @@ func _process(_delta: float):
 		resolve_round()
 		if current_phase != PHASE.GAME_OVER:
 			current_phase = PHASE.AWAIT_INPUT
+	elif current_phase == PHASE.AWAIT_AVFX:
+		return
 	else:
 		return
 	
