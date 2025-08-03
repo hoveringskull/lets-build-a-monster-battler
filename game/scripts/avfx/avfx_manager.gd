@@ -4,13 +4,26 @@ var active_effect_count: int
 var effect_group_queue: Array[Node]
 var current_effect_group: Node
 var active: bool
+var timeout_timer: Timer
+
+const MAX_GROUP_TIMEOUT: float = 6.0
+
+func _ready():
+	timeout_timer = Timer.new()
+	add_child(timeout_timer)
+	timeout_timer.wait_time = MAX_GROUP_TIMEOUT
+	timeout_timer.timeout.connect(timeout_current_group)
+	timeout_timer.one_shot = true
+	
 
 func _process(_delta: float) -> void:
 	if active and current_effect_group == null:
 		if effect_group_queue.size() == 0:
+			timeout_timer.stop()
 			Events.on_avfx_block_end.emit()
 			active = false
 		else:
+			timeout_timer.start()
 			current_effect_group = effect_group_queue.pop_front()
 			active_effect_count = current_effect_group.get_children().size()
 			for avfx_instance in current_effect_group.get_children():
@@ -23,8 +36,8 @@ func queue_avfx_effect_group(resources: Array[AVFXResource], monster: Monster):
 	add_child(group)
 	effect_group_queue.append(group)
 	for resource in resources:
-		var target = monster if resource.target_self else MonsterController.get_monster_opponent(monster)
-		var instance = resource.generate(target)
+		var target = MonsterController.get_monster_opponent(monster)
+		var instance = resource.generate(target, monster)
 		group.add_child(instance)
 		instance.name = resource.get_script().get_global_name()		
 
@@ -39,3 +52,14 @@ func remove_effect(avfx_instance: AVFXInstance):
 		current_effect_group.queue_free()
 		current_effect_group = null
 		
+func timeout_current_group():
+	if current_effect_group == null:
+		return
+	
+	print("Timed out effect " + current_effect_group.name)
+	
+	for child in current_effect_group.get_children():
+		if child.has_method("finish"):
+			child.finish()
+	
+	current_effect_group = null

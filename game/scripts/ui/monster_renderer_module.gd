@@ -32,6 +32,7 @@ var bound_monster: Monster
 func connect_events() -> void:
 	Events.on_monster_updated.connect(maybe_update_monster)
 	Events.on_monster_added_to_battle.connect(maybe_bind_monster)
+	Events.on_avfx_flash_monster.connect(flash_monster)
 	Events.on_avfx_move.connect(move_monster)
 
 func maybe_update_monster(monster: Monster):
@@ -43,17 +44,39 @@ func maybe_bind_monster(monster: Monster, is_player_monster: bool):
 		bound_monster = monster
 		move_child(frame, 0 if is_player_monster else 1)
 		update()
-		
+
 func move_monster(avfx_instance: AVFXInstance, v2fs: Array[Vector2Float]):
-	if avfx_instance.target != bound_monster:
+	var avfx_target = avfx_instance.user if avfx_instance.resource.target_self else avfx_instance.target
+	if avfx_target != bound_monster:
 		return
 	
 	var tween = get_tree().create_tween()
 	
+	tween.tween_property(sprite, "offset", Vector2.ZERO, 0.0)\
+		.set_delay(avfx_instance.resource.delay)
+	
 	for v2f in v2fs:
-		tween.tween_property(sprite, "offset", v2f.v2, v2f.f)
+		var new_offset = v2f.v2 if your_pov else Vector2(-v2f.v2.x, v2f.v2.y)
+		tween.tween_property(sprite, "offset", new_offset, v2f.f)
 	
 	tween.tween_property(sprite, "offset", Vector2.ZERO, 0.1)
+	tween.tween_callback(avfx_instance.finish)
+
+func flash_monster(avfx_instance: AVFXInstance, v2s: Array[Vector2]):
+	var avfx_target = avfx_instance.user if avfx_instance.resource.target_self else avfx_instance.target
+	if avfx_target != bound_monster:
+		return
+	
+	var tween = get_tree().create_tween()
+
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.0)\
+		.set_delay(avfx_instance.resource.delay)
+	
+	for v2 in v2s:
+		var color = Color(Color.WHITE, v2.x)
+		tween.tween_property(sprite, "modulate", color, v2.y)
+	
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.0)
 	tween.tween_callback(avfx_instance.finish)
 
 func update():

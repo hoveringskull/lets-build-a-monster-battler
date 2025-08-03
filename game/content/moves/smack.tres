@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MoveResource" load_steps=10 format=3 uid="uid://banxne14irujk"]
+[gd_resource type="Resource" script_class="MoveResource" load_steps=11 format=3 uid="uid://banxne14irujk"]
 
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_cfgox"]
 [ext_resource type="Script" uid="uid://bhld0rqw1bpqt" path="res://scripts/avfx/avfx_resources/avfx_resource.gd" id="2_23jds"]
@@ -9,14 +9,21 @@
 
 [sub_resource type="Resource" id="Resource_4mfxq"]
 script = ExtResource("3_5jvuc")
-v2 = Vector2(20, 0)
-f = 1.0
+v2 = Vector2(-20, 0)
+f = 0.1
+metadata/_custom_type_script = "uid://bw3jhmmg3l56t"
+
+[sub_resource type="Resource" id="Resource_23jds"]
+script = ExtResource("3_5jvuc")
+v2 = Vector2(10, 0)
+f = 0.05
 metadata/_custom_type_script = "uid://bw3jhmmg3l56t"
 
 [sub_resource type="Resource" id="Resource_2w00m"]
 script = ExtResource("4_2sypg")
-offsets_by_duration = Array[ExtResource("3_5jvuc")]([SubResource("Resource_4mfxq")])
+offsets_by_duration = Array[ExtResource("3_5jvuc")]([SubResource("Resource_4mfxq"), SubResource("Resource_23jds")])
 target_self = true
+delay = 0.0
 metadata/_custom_type_script = "uid://bt6jannfny5lb"
 
 [sub_resource type="Resource" id="Resource_apfif"]
