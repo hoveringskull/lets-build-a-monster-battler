@@ -87,6 +87,10 @@ func update():
 	sprite.texture = bound_monster.image
 	status_label.text = bound_monster.get_condition_string()
 	hp_bar.max_value = bound_monster.max_hp
-	hp_bar.value = bound_monster.hp
+	animate_hp_bar(bound_monster.hp)
 	hp_label.text = "{hp}\\{max_hp}".format({"hp": bound_monster.hp, "max_hp": bound_monster.max_hp})
 	return
+
+func animate_hp_bar(new_hp):
+	var tween = get_tree().create_tween()
+	tween.tween_property(hp_bar, "value", new_hp, 0.25)

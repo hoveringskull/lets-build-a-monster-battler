@@ -10,9 +10,9 @@ func _ready():
 
 func log(text: String):
 	# Log simply spawns a new label in the log and scrolls to it. Great for seeing what's happening.
-	var label = Label.new()
-	label.text = text
+	var label = TypeoutLabel.new()
 	content_container.add_child(label)
+	label.populate(text)
 	call_deferred("scroll_bottom")
 
 func scroll_bottom():
