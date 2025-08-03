@@ -119,6 +119,7 @@ func on_turn_begun(monster: Monster):
 	if monster.hp == 0:
 		return
 	for condition in monster.conditions:
+		AVFXManager.queue_avfx_effect_group(condition.resource.on_begin_turn_avfx, monster)
 		for effect in condition.resource.on_begin_turn_effects:
 			effect._do(monster, condition, game_state, false)
 		condition.duration_remaining -= 1

@@ -1,15 +1,27 @@
-[gd_resource type="Resource" script_class="ConditionResource" load_steps=6 format=3 uid="uid://bgdf0w8mhbuv"]
+[gd_resource type="Resource" script_class="ConditionResource" load_steps=10 format=3 uid="uid://bgdf0w8mhbuv"]
 
 [ext_resource type="Script" uid="uid://d1ee3iw02dnap" path="res://scripts/content/condition_resource.gd" id="1_2addo"]
+[ext_resource type="Script" uid="uid://bhld0rqw1bpqt" path="res://scripts/avfx/avfx_resources/avfx_resource.gd" id="1_48m4k"]
 [ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="1_p3wge"]
 [ext_resource type="Script" uid="uid://d3725gvjhfjyb" path="res://scripts/content/targeted_effects/do_damage.gd" id="2_48m4k"]
+[ext_resource type="PackedScene" uid="uid://dh5sh5w5yq7ig" path="res://scenes/animations/poison.tscn" id="2_d870y"]
+[ext_resource type="Script" uid="uid://dofc6233wqyn6" path="res://scripts/avfx/avfx_resources/avfx_animation.gd" id="3_wbmjk"]
 [ext_resource type="Script" uid="uid://yvyyjadke26x" path="res://scripts/content/stat_modifier.gd" id="4_d1igp"]
+
+[sub_resource type="Resource" id="Resource_d870y"]
+script = ExtResource("3_wbmjk")
+animation_scene = ExtResource("2_d870y")
+offset = Vector2(32, 32)
+target_self = true
+delay = 0.0
+metadata/_custom_type_script = "uid://dofc6233wqyn6"
 
 [sub_resource type="Resource" id="Resource_p3wge"]
 script = ExtResource("2_48m4k")
 base_damage = 5
 ignore_stats = true
 damage_log_string = "{target_name} is hurt by poison for {amt}"
+critical_hit_damage_coefficient = 1.5
 outcome_filter = 2
 target_self = true
 metadata/_custom_type_script = "uid://d3725gvjhfjyb"
@@ -19,6 +31,7 @@ script = ExtResource("1_2addo")
 name = "Poison"
 stat_modifiers = Array[ExtResource("4_d1igp")]([])
 on_begin_turn_effects = Array[ExtResource("1_p3wge")]([SubResource("Resource_p3wge")])
+on_begin_turn_avfx = Array[ExtResource("1_48m4k")]([SubResource("Resource_d870y")])
 duration = 4
 max_stacks = 1
 short_name = "PSN"
