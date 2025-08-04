@@ -23,6 +23,8 @@ signal on_monster_updated
 # Events sent internally
 signal request_log
 signal on_ui_ready
+signal on_message_panel_block_start
+signal on_message_panel_block_end
 
 # Events for avfx
 signal on_avfx_block_start
@@ -34,3 +36,4 @@ signal on_avfx_animation
 signal on_avfx_flash_monster
 signal on_avfx_flash_screen
 signal on_avfx_shake_screen
+signal on_avfx_queue_messages

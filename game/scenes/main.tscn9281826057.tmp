@@ -17,7 +17,7 @@
 offset = Vector2(196.46, 180)
 zoom = Vector2(2.57, 2.57)
 
-[node name="battle_renderer" type="Control" parent="." node_paths=PackedStringArray("enemy_mon_module", "player_mon_module", "enemy_mon_state_dump", "player_mon_state_dump", "message_panel", "control_panel")]
+[node name="battle_renderer" type="Control" parent="." node_paths=PackedStringArray("enemy_mon_module", "player_mon_module", "enemy_mon_state_dump", "player_mon_state_dump")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 410.0
@@ -28,8 +28,6 @@ enemy_mon_module = NodePath("left/mon_renderer_module")
 player_mon_module = NodePath("left/mon_renderer_module2")
 enemy_mon_state_dump = NodePath("tabs/them")
 player_mon_state_dump = NodePath("tabs/you")
-message_panel = NodePath("left/blocking_message_panel")
-control_panel = NodePath("left/controls_menu")
 
 [node name="left" type="VBoxContainer" parent="battle_renderer"]
 layout_mode = 0
@@ -53,10 +51,9 @@ label = NodePath("TypeoutLabel")
 
 [node name="TypeoutLabel" type="Label" parent="battle_renderer/left/blocking_message_panel"]
 layout_mode = 0
-offset_right = 180.0
-offset_bottom = 35.0
-text = "Test ttest adsfas dfasdf sadfadsdaasfdaf"
-autowrap_mode = 3
+offset_right = 40.0
+offset_bottom = 16.0
+text = "Test ttest"
 script = ExtResource("9_85g3d")
 metadata/_custom_type_script = "uid://c1rncch2euu3h"
 
