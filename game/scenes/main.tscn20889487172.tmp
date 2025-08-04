@@ -53,10 +53,9 @@ label = NodePath("TypeoutLabel")
 
 [node name="TypeoutLabel" type="Label" parent="battle_renderer/left/blocking_message_panel"]
 layout_mode = 0
-offset_right = 180.0
-offset_bottom = 35.0
-text = "Test ttest adsfas dfasdf sadfadsdaasfdaf"
-autowrap_mode = 3
+offset_right = 40.0
+offset_bottom = 16.0
+text = "Test ttest"
 script = ExtResource("9_85g3d")
 metadata/_custom_type_script = "uid://c1rncch2euu3h"
 
