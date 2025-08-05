@@ -15,6 +15,10 @@ func _ready():
 	timeout_timer.timeout.connect(timeout_current_group)
 	timeout_timer.one_shot = true
 	
+	Events.on_message_panel_start.connect(func(): timeout_timer.paused = true)
+	Events.on_message_panel_end.connect(func(): timeout_timer.paused = false)
+
+	
 
 func _process(_delta: float) -> void:
 	if active and current_effect_group == null:
@@ -29,6 +33,10 @@ func _process(_delta: float) -> void:
 			for avfx_instance in current_effect_group.get_children():
 				avfx_instance.execute()
 			call_deferred("emit_block_start")
+
+func queue_avfx_message(message: String):
+	var messages = AVFXMessages.new([message] as Array[String])
+	queue_avfx_effect_group([messages], null)
 
 func queue_avfx_effect_group(resources: Array[AVFXResource], monster: Monster):
 	active = true

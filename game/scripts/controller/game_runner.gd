@@ -98,7 +98,7 @@ func handle_run():
 	if current_phase != PHASE.AWAIT_INPUT:
 		return
 
-	Events.request_log.emit("You run away. Your cowardice will not be forgotten")
+	AVFXManager.queue_avfx_message("You run away. Your cowardice will not be forgotten")
 	
 	var timer = Timer.new()
 	add_child(timer)
@@ -115,7 +115,7 @@ func handle_restart():
 func choose_ai_move() -> Move:
 	var legal_move_indices = game_state.opponent_monster.get_legal_move_indices()
 	if legal_move_indices.size() <= 0:
-		Events.request_log.emit("No moves. Using default.") 
+		AVFXManager.queue_avfx_message("No moves. Using default.") 
 		return game_state.opponent_monster.fallback_move
 	else:
 		var move_index = legal_move_indices.pick_random()
