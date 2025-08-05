@@ -9,7 +9,6 @@ var fallback_move
 
 # ephemeral state, cleared after each turn
 var move_blocked
-var chosen_move
 
 var image: Texture2D:
 	get: return species.image

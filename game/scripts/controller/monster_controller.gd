@@ -37,6 +37,8 @@ func faint_monster(monster: Monster):
 	return
 
 func get_monster_move_at_index(monster: Monster, index: int) -> Move:
+	if index == -1:
+		return monster.fallback_move
 	return monster.moves[index]
 
 func use_monster_move(monster: Monster, move: Move):
@@ -114,12 +116,6 @@ func instantiate_condition_on_monster(monster: Monster, condition_resource: Cond
 	monster.conditions.append(condition)
 	
 	Events.on_monster_updated.emit(monster)
-	
-func do_monster_turn(monster: Monster):
-	on_turn_begun(monster)
-	use_monster_move(monster, monster.chosen_move)
-	monster.chosen_move = null
-	return
 
 func on_turn_begun(monster: Monster):
 	if monster.hp == 0:

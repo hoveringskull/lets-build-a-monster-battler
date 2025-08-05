@@ -9,13 +9,45 @@ func _ready():
 func get_controller_components():
 	game_state = GameRunner.game_state
 	rng = GameRunner.rng
-	
+
 func create_trainer(monsters: Array[Monster], is_player: bool) -> Trainer:
 	var trainer = Trainer.new()
 	trainer.is_player = is_player
 	trainer.monsters = monsters
 	add_trainer_monster_to_battle(trainer, 0)
 	return trainer
+
+func do_trainer_turn(trainer: Trainer):
+	MonsterController.on_turn_begun(trainer.current_monster)
+
+	match trainer.chosen_action_type:
+		GameRunner.INTERACTION_MODE.FIGHT:
+			var move = MonsterController.get_monster_move_at_index(trainer.current_monster, trainer.chosen_action_index)
+			MonsterController.use_monster_move(trainer.current_monster, move)
+		GameRunner.INTERACTION_MODE.MON:
+			add_trainer_monster_to_battle(trainer, trainer.chosen_action_index)
+		GameRunner.INTERACTION_MODE.ITEM:
+			use_item_at_index(trainer, trainer.chosen_action_index)
+	
+	trainer.chosen_action_index = -1
+	trainer.chosen_action_type = GameRunner.INTERACTION_MODE.NONE
+
+
+func set_add_trainer_monster_to_battle(trainer: Trainer, index: int):
+	var monster = trainer.monsters[index]
+	
+	assert(monster.hp > 0)
+	
+	trainer.chosen_action_index = index
+	trainer.chosen_action_type = GameRunner.INTERACTION_MODE.MON
+
+func set_use_item_at_index(trainer: Trainer, index: int):
+	var item = trainer.items[index]
+	
+	assert(item.quantity > 0)
+	
+	trainer.chosen_action_index = index
+	trainer.chosen_action_type = GameRunner.INTERACTION_MODE.ITEM
 
 func add_trainer_monster_to_battle(trainer: Trainer, monster_index: int):
 	var monster = trainer.monsters[monster_index]
@@ -27,6 +59,16 @@ func get_next_useable_monster_index(trainer: Trainer) -> int:
 		if trainer.monsters[index].hp > 0:
 			return index
 	return -1
+
+func set_current_monster_move(trainer: Trainer, index: int):
+	var monster = trainer.current_monster
+	var move = MonsterController.get_monster_move_at_index(monster, index)
+	
+	assert(move.usages > 0)
+	
+	trainer.chosen_action_index = index
+	trainer.chosen_action_type = GameRunner.INTERACTION_MODE.FIGHT
+	
 
 func use_item_at_index(trainer: Trainer, index: int):
 	var item = trainer.items[index]
