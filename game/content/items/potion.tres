@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=9 format=3 uid="uid://bqfmq42fn63ml"]
+
+[ext_resource type="Script" uid="uid://cpyhd3y2ecu81" path="res://scripts/content/item_resource.gd" id="1_78wc5"]
+[ext_resource type="Script" uid="uid://bhld0rqw1bpqt" path="res://scripts/avfx/avfx_resources/avfx_resource.gd" id="2_070fs"]
+[ext_resource type="PackedScene" uid="uid://dh5sh5w5yq7ig" path="res://scenes/animations/poison.tscn" id="3_esooi"]
+[ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="3_tr0h5"]
+[ext_resource type="Script" uid="uid://dofc6233wqyn6" path="res://scripts/avfx/avfx_resources/avfx_animation.gd" id="4_14y4w"]
+[ext_resource type="Script" uid="uid://38xcaadcasq3" path="res://scripts/content/targeted_effects/do_heal.gd" id="6_gv5qs"]
+
+[sub_resource type="Resource" id="Resource_4qg3t"]
+script = ExtResource("4_14y4w")
+animation_scene = ExtResource("3_esooi")
+offset = Vector2(32, 32)
+target_self = true
+delay = 0.0
+metadata/_custom_type_script = "uid://dofc6233wqyn6"
+
+[sub_resource type="Resource" id="Resource_r6uwe"]
+script = ExtResource("6_gv5qs")
+base_heal = 20
+outcome_filter = 2
+target_self = true
+metadata/_custom_type_script = "uid://38xcaadcasq3"
+
+[resource]
+script = ExtResource("1_78wc5")
+name = "Potion"
+use_effects = Array[ExtResource("3_tr0h5")]([SubResource("Resource_r6uwe")])
+use_avfx = Array[ExtResource("2_070fs")]([SubResource("Resource_4qg3t")])
+consumable = true
+metadata/_custom_type_script = "uid://cpyhd3y2ecu81"
