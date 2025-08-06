@@ -100,7 +100,7 @@ func add_item(trainer: Trainer, item_resource: ItemResource, quantity: int):
 		var item = Item.new()
 		item.resource = item_resource
 		item.quantity = quantity
-		game_state.player.items.append(item)
+		trainer.items.append(item)
 	else:
 		var item = trainer.items[existing_item_index]
 		item.quantity += quantity

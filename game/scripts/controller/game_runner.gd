@@ -49,25 +49,15 @@ func setup_model():
 	
 	Events.on_new_game_state_created.emit()
 	
-	var species_salamander = preload("res://content/species/salamander.tres")
-	var species_turtle = preload("res://content/species/turtle.tres")
-	var species_dino = preload("res://content/species/dino.tres")
+	var start_state = preload("res://content/start_state/default.tres")
 	
-	var monster1 = MonsterController.create_monster(species_salamander)
-	var monster2 = MonsterController.create_monster(species_turtle, "Reggie")
-	var monster3 = MonsterController.create_monster(species_dino, "Steven")
-	var monster4 = MonsterController.create_monster(species_turtle, "Bob")
-
-	game_state.player = TrainerController.create_trainer([monster1, monster3], true)
-	game_state.opponent = TrainerController.create_trainer([monster2, monster4], false)
-	
-	game_state.player.name = "Gary"
-	
-	var item_resource = preload("res://content/items/potion.tres")
-	TrainerController.add_item(game_state.player, item_resource, 1)
-	TrainerController.add_item(game_state.player, item_resource, 1)
+	generate_state_from_start_state(start_state)
 
 	current_phase = PHASE.AWAIT_INPUT
+
+func generate_state_from_start_state(start_state: StartState):
+	game_state.player = start_state.player_start_state.generate_trainer(true)
+	game_state.opponent = start_state.opponent_start_state.generate_trainer(false)
 
 func handle_request_menu_fight():
 	if current_phase != PHASE.AWAIT_INPUT:

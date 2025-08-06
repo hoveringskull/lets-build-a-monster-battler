@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="StartState" load_steps=17 format=3 uid="uid://dwls2di8huvb0"]
+
+[ext_resource type="Script" uid="uid://biesy6nrxs7xc" path="res://scripts/content/start_state/item_start_state.gd" id="1_lcie8"]
+[ext_resource type="Script" uid="uid://br18kgcjfxjhh" path="res://scripts/content/start_state/start_state.gd" id="1_xtyxf"]
+[ext_resource type="Script" uid="uid://c5ft8d8kf578m" path="res://scripts/content/start_state/monster_start_state.gd" id="2_t8c35"]
+[ext_resource type="Resource" uid="uid://dale7r8aq7pbo" path="res://content/species/dino.tres" id="3_sqlun"]
+[ext_resource type="Script" uid="uid://d0llva575pwub" path="res://scripts/content/start_state/trainer_start_state.gd" id="3_xehwm"]
+[ext_resource type="Resource" uid="uid://be2uu7m4yjrbv" path="res://content/species/salamander.tres" id="4_438cl"]
+[ext_resource type="Resource" uid="uid://q3wtskx66wm2" path="res://content/species/turtle.tres" id="5_8dnqy"]
+[ext_resource type="Resource" uid="uid://bqfmq42fn63ml" path="res://content/items/potion.tres" id="7_i3l1s"]
+
+[sub_resource type="Resource" id="Resource_peker"]
+script = ExtResource("2_t8c35")
+nickname = ""
+species = ExtResource("3_sqlun")
+level = 2
+metadata/_custom_type_script = "uid://c5ft8d8kf578m"
+
+[sub_resource type="Resource" id="Resource_xpg6v"]
+script = ExtResource("2_t8c35")
+nickname = ""
+species = ExtResource("4_438cl")
+level = 3
+metadata/_custom_type_script = "uid://c5ft8d8kf578m"
+
+[sub_resource type="Resource" id="Resource_p5cfw"]
+script = ExtResource("2_t8c35")
+nickname = "Deirdre"
+species = ExtResource("5_8dnqy")
+level = 4
+metadata/_custom_type_script = "uid://c5ft8d8kf578m"
+
+[sub_resource type="Resource" id="Resource_7avhh"]
+script = ExtResource("3_xehwm")
+name = "Opponentname"
+monsters = Array[ExtResource("2_t8c35")]([SubResource("Resource_peker"), SubResource("Resource_xpg6v"), SubResource("Resource_p5cfw")])
+items = Array[ExtResource("1_lcie8")]([])
+metadata/_custom_type_script = "uid://d0llva575pwub"
+
+[sub_resource type="Resource" id="Resource_ghev2"]
+script = ExtResource("1_lcie8")
+resource = ExtResource("7_i3l1s")
+quantity = 2
+metadata/_custom_type_script = "uid://biesy6nrxs7xc"
+
+[sub_resource type="Resource" id="Resource_ds77j"]
+script = ExtResource("2_t8c35")
+nickname = "George"
+species = ExtResource("4_438cl")
+level = 4
+metadata/_custom_type_script = "uid://c5ft8d8kf578m"
+
+[sub_resource type="Resource" id="Resource_i8s50"]
+script = ExtResource("2_t8c35")
+nickname = "Samantha"
+species = ExtResource("5_8dnqy")
+level = 2
+metadata/_custom_type_script = "uid://c5ft8d8kf578m"
+
+[sub_resource type="Resource" id="Resource_sqlun"]
+script = ExtResource("3_xehwm")
+name = "Playername"
+monsters = Array[ExtResource("2_t8c35")]([SubResource("Resource_ds77j"), SubResource("Resource_i8s50")])
+items = Array[ExtResource("1_lcie8")]([SubResource("Resource_ghev2")])
+metadata/_custom_type_script = "uid://d0llva575pwub"
+
+[resource]
+script = ExtResource("1_xtyxf")
+player_start_state = SubResource("Resource_sqlun")
+opponent_start_state = SubResource("Resource_7avhh")
+metadata/_custom_type_script = "uid://br18kgcjfxjhh"
