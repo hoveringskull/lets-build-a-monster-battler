@@ -56,9 +56,10 @@ func setup_model():
 	var monster1 = MonsterController.create_monster(species_salamander)
 	var monster2 = MonsterController.create_monster(species_turtle, "Reggie")
 	var monster3 = MonsterController.create_monster(species_dino, "Steven")
-	
+	var monster4 = MonsterController.create_monster(species_turtle, "Bob")
+
 	game_state.player = TrainerController.create_trainer([monster1, monster3], true)
-	game_state.opponent = TrainerController.create_trainer([monster2], false)
+	game_state.opponent = TrainerController.create_trainer([monster2, monster4], false)
 	
 	game_state.player.name = "Gary"
 	
@@ -155,6 +156,7 @@ func resolve_round():
 
 		
 	if game_state.player_monster.hp == 0:
+		MonsterController.add_experience_to_monster(game_state.opponent_monster, Calculations.experience_value_of_monster(game_state.player_monster))
 		var next_index = TrainerController.get_next_useable_monster_index(game_state.player)
 		if next_index == -1:
 			current_phase = PHASE.GAME_OVER
@@ -163,6 +165,7 @@ func resolve_round():
 			TrainerController.add_trainer_monster_to_battle(game_state.player, next_index)
 	
 	if game_state.opponent_monster.hp == 0:
+		MonsterController.add_experience_to_monster(game_state.player_monster, Calculations.experience_value_of_monster(game_state.opponent_monster))
 		var next_index = TrainerController.get_next_useable_monster_index(game_state.opponent)
 		if next_index == -1:
 			current_phase = PHASE.GAME_OVER

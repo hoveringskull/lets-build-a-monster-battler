@@ -86,6 +86,11 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	monster.species = species
 	monster.hp = monster.max_hp
 	monster.nickname = nickname
+	monster.hp_growth = rng.randf_range(0.4, 1.2)
+	monster.atk_growth = rng.randf_range(0.4, 1.2)
+	monster.def_growth = rng.randf_range(0.4, 1.2)
+	monster.spd_growth = rng.randf_range(0.4, 1.2)
+
 	var moves: Array[Move] = []
 	
 	for move_resource in species.starter_moves:
@@ -103,6 +108,18 @@ func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
 	monster.fallback_move.usages = 999
 
 	return monster
+
+func add_experience_to_monster(monster: Monster, experience: int):
+	monster.experience += experience
+	while monster.experience >= Calculations.experience_for_level(monster.level):
+		monster.experience -= Calculations.experience_for_level(monster.level)
+		level_up_monster(monster)
+		Events.on_monster_updated.emit(monster)
+
+func level_up_monster(monster: Monster):
+	monster.level += 1
+	AVFXManager.queue_avfx_message("{monster_name} has leveled up to level {level}".format({"monster_name": monster.name, "level": monster.level}))
+	# TODO: Handle move learning down here!
 
 func instantiate_condition_on_monster(monster: Monster, condition_resource: ConditionResource):
 	if monster.conditions\

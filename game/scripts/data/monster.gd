@@ -5,7 +5,14 @@ var hp: int
 var nickname: String
 var moves: Array[Move]
 var conditions: Array[Condition]
+var experience: int
+var level: int = 1
 var fallback_move
+
+var hp_growth: float
+var atk_growth: float
+var def_growth: float
+var spd_growth: float
 
 # ephemeral state, cleared after each turn
 var move_blocked
@@ -20,16 +27,16 @@ var type: MonsterType.Type:
 	get: return species.type
 
 var max_hp: int:
-	get: return clamp(species.base_max_hp + sum_condition_stats_for_code(Stat.Code.MAX_HP), 1, 999)
+	get: return Calculations.calculate_monster_stat(species.base_max_hp, hp_growth, level, sum_condition_stats_for_code(Stat.Code.MAX_HP))
 
 var attack: int:
-	get: return clamp(species.base_attack + sum_condition_stats_for_code(Stat.Code.ATK), 1, 999)
+	get: return Calculations.calculate_monster_stat(species.base_attack, atk_growth, level, sum_condition_stats_for_code(Stat.Code.ATK))
 	
 var defence: int:
-	get: return clamp(species.base_defence + sum_condition_stats_for_code(Stat.Code.DEF), 1, 999)
+	get: return Calculations.calculate_monster_stat(species.base_defence, def_growth, level, sum_condition_stats_for_code(Stat.Code.DEF))
 	
 var speed: int:
-	get: return clamp(species.base_speed + sum_condition_stats_for_code(Stat.Code.SPD), 1, 999)
+	get: return Calculations.calculate_monster_stat(species.base_speed, spd_growth, level, sum_condition_stats_for_code(Stat.Code.SPD))
 
 func get_legal_move_indices() -> Array[int]:
 	var legal_indices: Array[int] = []

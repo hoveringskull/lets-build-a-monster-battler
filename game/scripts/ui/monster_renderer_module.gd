@@ -48,6 +48,7 @@ func maybe_bind_monster(monster: Monster, is_player_monster: bool):
 func move_monster(avfx_instance: AVFXInstance, v2fs: Array[Vector2Float]):
 	var avfx_target = avfx_instance.user if avfx_instance.resource.target_self else avfx_instance.target
 	if avfx_target != bound_monster:
+		avfx_instance.finish()
 		return
 	
 	var tween = get_tree().create_tween()
@@ -65,6 +66,7 @@ func move_monster(avfx_instance: AVFXInstance, v2fs: Array[Vector2Float]):
 func flash_monster(avfx_instance: AVFXInstance, v2s: Array[Vector2]):
 	var avfx_target = avfx_instance.user if avfx_instance.resource.target_self else avfx_instance.target
 	if avfx_target != bound_monster:
+		avfx_instance.finish()
 		return
 	
 	var tween = get_tree().create_tween()

@@ -75,6 +75,3 @@ func timeout_current_group():
 	for child in current_effect_group.get_children():
 		if child.has_method("finish"):
 			child.finish()
-	
-	current_effect_group.queue_free()	
-	current_effect_group = null
