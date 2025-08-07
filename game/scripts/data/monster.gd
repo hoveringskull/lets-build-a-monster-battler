@@ -17,7 +17,9 @@ var def_growth: float
 var spd_growth: float
 
 # ephemeral state, cleared after each turn
-var move_blocked
+var move_blocked: bool
+var pending_moves_queue: Array[MoveResource] 
+var pending_move: MoveResource
 
 var image: Texture2D:
 	get: return species.image

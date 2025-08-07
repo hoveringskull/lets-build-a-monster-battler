@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://crpahbrk5mgcm" path="res://scenes/controls_menu.tscn" id="5_choun"]
 [ext_resource type="Script" uid="uid://dn83rcsseko3y" path="res://scripts/ui/message_panel.gd" id="5_ya4ey"]
 [ext_resource type="Script" uid="uid://c1rncch2euu3h" path="res://scenes/typeout_label.gd" id="6_eb6dy"]
+[ext_resource type="Script" uid="uid://c8c2ar3x10q7a" path="res://scripts/ui/option_panel.gd" id="7_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://b5pwbmjdjsdbc" path="res://scenes/log.tscn" id="7_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://bvnmhvojccgov" path="res://scenes/you.tscn" id="8_eb6dy"]
 [ext_resource type="FontFile" uid="uid://xj2o3brbo27g" path="res://assets/fonts/basis33.ttf" id="9_gqmmt"]
-[ext_resource type="PackedScene" uid="uid://nm6g7isc13cg" path="res://scenes/outcome.tscn" id="10_a8y0u"]
 
 [node name="main" type="Node2D"]
 
@@ -17,7 +17,7 @@
 offset = Vector2(196.46, 180)
 zoom = Vector2(2.57, 2.57)
 
-[node name="battle_renderer" type="Control" parent="." node_paths=PackedStringArray("enemy_mon_module", "player_mon_module", "enemy_mon_state_dump", "player_mon_state_dump", "controls", "message_panel")]
+[node name="battle_renderer" type="Control" parent="." node_paths=PackedStringArray("enemy_mon_module", "player_mon_module", "enemy_mon_state_dump", "player_mon_state_dump", "controls", "message_panel", "move_replace_panel")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 410.0
@@ -30,6 +30,7 @@ enemy_mon_state_dump = NodePath("tabs/them")
 player_mon_state_dump = NodePath("tabs/you")
 controls = NodePath("left/controls_menu")
 message_panel = NodePath("left/message_panel")
+move_replace_panel = NodePath("left/move_select_panel")
 
 [node name="left" type="VBoxContainer" parent="battle_renderer"]
 layout_mode = 0
@@ -46,19 +47,39 @@ your_pov = true
 [node name="controls_menu" parent="battle_renderer/left" instance=ExtResource("5_choun")]
 layout_mode = 2
 
-[node name="message_panel" type="Panel" parent="battle_renderer/left" node_paths=PackedStringArray("label")]
+[node name="message_panel" type="Panel" parent="battle_renderer/left" node_paths=PackedStringArray("label", "choice_parent")]
 layout_mode = 2
 script = ExtResource("5_ya4ey")
-label = NodePath("TypeoutLabel")
+label = NodePath("layout/TypeoutLabel")
+choice_parent = NodePath("layout/choices")
 
-[node name="TypeoutLabel" type="Label" parent="battle_renderer/left/message_panel"]
+[node name="layout" type="VBoxContainer" parent="battle_renderer/left/message_panel"]
 layout_mode = 0
-offset_right = 163.0
+offset_right = 150.0
 offset_bottom = 54.0
+
+[node name="TypeoutLabel" type="Label" parent="battle_renderer/left/message_panel/layout"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
 text = "Blastoise uses hydro pump! Great job blastoise"
 autowrap_mode = 2
 script = ExtResource("6_eb6dy")
 metadata/_custom_type_script = "uid://c1rncch2euu3h"
+
+[node name="choices" type="HBoxContainer" parent="battle_renderer/left/message_panel/layout"]
+layout_mode = 2
+
+[node name="move_select_panel" type="Control" parent="battle_renderer/left" node_paths=PackedStringArray("options_parent")]
+layout_mode = 2
+script = ExtResource("7_eb6dy")
+mode = 4
+options_parent = NodePath("options")
+metadata/_custom_type_script = "uid://c8c2ar3x10q7a"
+
+[node name="options" type="VBoxContainer" parent="battle_renderer/left/move_select_panel"]
+layout_mode = 0
+offset_right = 138.0
+offset_bottom = 60.0
 
 [node name="tabs" type="TabContainer" parent="battle_renderer"]
 texture_filter = 1
@@ -83,11 +104,3 @@ your_monster = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
-
-[node name="outcome" parent="battle_renderer" instance=ExtResource("10_a8y0u")]
-visible = false
-layout_mode = 0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 110.0
-offset_bottom = 61.0

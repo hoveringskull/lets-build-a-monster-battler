@@ -4,7 +4,7 @@ extends Node
 
 # INTERACTION_MODE encodes the menu states the main battle menu can be in.
 # Since RUN isn't a special menu, it does not get an entry here
-enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
+enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON, MOVE_REPLACE}
 
 enum PHASE {AWAIT_INPUT, RESOLVE_ROUND, AWAIT_AVFX, GAME_OVER}
 
@@ -105,6 +105,8 @@ func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
 			TrainerController.set_current_monster_move(game_state.player, index)
 		INTERACTION_MODE.ITEM:
 			TrainerController.set_use_item_at_index(game_state.player, index)
+		INTERACTION_MODE.MOVE_REPLACE:
+			MonsterController.set_monster_move_at_index_to_pending_move(game_state.player_monster, index)
 	
 	Events.on_menu_option_selected.emit()
 
@@ -112,13 +114,11 @@ func handle_run():
 	if current_phase != PHASE.AWAIT_INPUT:
 		return
 
-	AVFXManager.queue_avfx_message("You run away. Your cowardice will not be forgotten")
+	var choice_run = ChoiceResource.new("> Leave", handle_quit)
+	var choice_cancel = ChoiceResource.new("> Cancel", func(): return)
+	AVFXManager.queue_avfx_message("If you run away, your cowardice will not be forgotten", [choice_run, choice_cancel])
 	
-	var timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = 2.0
-	timer.timeout.connect(handle_quit)
-	timer.start()
+	
 
 func handle_quit():
 	get_tree().quit()
@@ -144,13 +144,19 @@ func resolve_round():
 		TrainerController.do_trainer_turn(game_state.opponent)
 		TrainerController.do_trainer_turn(game_state.player)
 
-		
+	
+	var quit_choice = ChoiceResource.new("> Quit", handle_quit)
+	var restart_choice = ChoiceResource.new("> Restart", handle_restart)
+	
 	if game_state.player_monster.hp == 0:
 		MonsterController.add_experience_to_monster(game_state.opponent_monster, Calculations.experience_value_of_monster(game_state.player_monster))
 		var next_index = TrainerController.get_next_useable_monster_index(game_state.player)
 		if next_index == -1:
 			current_phase = PHASE.GAME_OVER
 			Events.on_game_over.emit(false)
+			
+			AVFXManager.queue_avfx_message("You lose!", [quit_choice, restart_choice])
+			
 		else:
 			TrainerController.add_trainer_monster_to_battle(game_state.player, next_index)
 	
@@ -160,6 +166,7 @@ func resolve_round():
 		if next_index == -1:
 			current_phase = PHASE.GAME_OVER
 			Events.on_game_over.emit(true)
+			AVFXManager.queue_avfx_message("You win!", [quit_choice, restart_choice])
 		else:
 			TrainerController.add_trainer_monster_to_battle(game_state.opponent, next_index)
 

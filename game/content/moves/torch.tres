@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="MoveResource" load_steps=5 format=3 uid="uid://boc11cttbfuhc"]
+[gd_resource type="Resource" script_class="MoveResource" load_steps=6 format=3 uid="uid://boc11cttbfuhc"]
 
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_dwguc"]
 [ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_h48l8"]
+[ext_resource type="Script" uid="uid://bhld0rqw1bpqt" path="res://scripts/avfx/avfx_resources/avfx_resource.gd" id="2_yx2ie"]
 [ext_resource type="Script" uid="uid://d3725gvjhfjyb" path="res://scripts/content/targeted_effects/do_damage.gd" id="3_yx2ie"]
 
 [sub_resource type="Resource" id="Resource_teexd"]
 script = ExtResource("3_yx2ie")
 base_damage = 30
+ignore_stats = false
+damage_log_string = "{doer_name} hits {target_name} for {amt} damage"
+critical_hit_damage_coefficient = 1.5
 outcome_filter = 0
 target_self = false
 metadata/_custom_type_script = "uid://d3725gvjhfjyb"
@@ -19,4 +23,6 @@ use_effects = Array[ExtResource("2_h48l8")]([SubResource("Resource_teexd")])
 type = 3
 use_message = "{user_name} attacks with a big {move_name}"
 base_accuracy = 0.9
+move_priority = 0
+use_avfx = Array[ExtResource("2_yx2ie")]([])
 metadata/_custom_type_script = "uid://be1nhralvcl0t"

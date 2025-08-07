@@ -6,6 +6,7 @@ extends Control
 @export var player_mon_state_dump: MonsterDataDump
 @export var controls: Control
 @export var message_panel: MessagePanel
+@export var move_replace_panel: OptionPanel
 
 func _ready():
 	enemy_mon_module.connect_events()
@@ -19,17 +20,31 @@ func _ready():
 	Events.on_avfx_shake_screen.connect(avfx_shake_screen)
 	Events.on_message_panel_start.connect(show_message_panel)
 	Events.on_message_panel_end.connect(hide_message_panel)
+	Events.on_player_pending_learn_move.connect(show_learn_move_panel)
+	Events.on_player_move_replace_completed.connect(hide_learn_move_panel)
 	Events.on_ui_ready.emit()
 	
 	hide_message_panel()
 
+func show_learn_move_panel(labels: Array[StringEnabled]):
+	move_replace_panel.show()
+	message_panel.hide()
+	controls.hide()
+	move_replace_panel.populate(labels)
+	
+func hide_learn_move_panel():
+	move_replace_panel.hide()
+	controls.show()
+
 func show_message_panel():
 	message_panel.show()
 	controls.hide()
+	move_replace_panel.hide()
 	
 func hide_message_panel():
 	message_panel.hide()
 	controls.show()
+	move_replace_panel.hide()
 
 func avfx_flash_screen(avfx_instance: AVFXInstance, v2s: Array[Vector2]):
 	var tween = get_tree().create_tween()

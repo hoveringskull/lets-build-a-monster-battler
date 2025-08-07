@@ -80,7 +80,7 @@ func use_item_at_index(trainer: Trainer, index: int):
 	
 	var use_string = item.use_message.format({"user_name": trainer.name, "item_name": item.name})
 
-	var message_avfx = AVFXMessages.new(logs as Array[String])
+	var message_avfx = AVFXMessages.fromStrings(logs as Array[String])
 	var avfx_group = item.resource.use_avfx.duplicate()
 	avfx_group.append(message_avfx)
 	AVFXManager.queue_avfx_effect_group(avfx_group, trainer.current_monster)
