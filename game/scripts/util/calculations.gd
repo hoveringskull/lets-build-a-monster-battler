@@ -10,4 +10,4 @@ static func experience_for_level(level: int):
 	return 200 * level
 
 static func experience_value_of_monster(monster: Monster):
-	return 100 * monster.level
+	return 600 * monster.level

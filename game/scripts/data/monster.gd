@@ -1,5 +1,7 @@
 class_name Monster
 
+const MAX_MOVES = 4
+
 var species: SpeciesResource
 var hp: int
 var nickname: String
