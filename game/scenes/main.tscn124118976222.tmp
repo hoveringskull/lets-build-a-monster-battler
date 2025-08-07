@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsstlaea5k8aw"]
+[gd_scene load_steps=11 format=3 uid="uid://dsstlaea5k8aw"]
 
 [ext_resource type="Theme" uid="uid://bwqrj7njjbn07" path="res://ui/main.tres" id="2_trceg"]
 [ext_resource type="Script" uid="uid://b7eoh6vvt5ick" path="res://scripts/ui/battle_renderer.gd" id="3_a8y0u"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://crpahbrk5mgcm" path="res://scenes/controls_menu.tscn" id="5_choun"]
 [ext_resource type="Script" uid="uid://dn83rcsseko3y" path="res://scripts/ui/message_panel.gd" id="5_ya4ey"]
 [ext_resource type="Script" uid="uid://c1rncch2euu3h" path="res://scenes/typeout_label.gd" id="6_eb6dy"]
-[ext_resource type="Script" uid="uid://c8c2ar3x10q7a" path="res://scripts/ui/option_panel.gd" id="7_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://b5pwbmjdjsdbc" path="res://scenes/log.tscn" id="7_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://bvnmhvojccgov" path="res://scenes/you.tscn" id="8_eb6dy"]
 [ext_resource type="FontFile" uid="uid://xj2o3brbo27g" path="res://assets/fonts/basis33.ttf" id="9_gqmmt"]
@@ -18,7 +17,7 @@
 offset = Vector2(196.46, 180)
 zoom = Vector2(2.57, 2.57)
 
-[node name="battle_renderer" type="Control" parent="." node_paths=PackedStringArray("enemy_mon_module", "player_mon_module", "enemy_mon_state_dump", "player_mon_state_dump", "controls", "message_panel", "move_replace_panel")]
+[node name="battle_renderer" type="Control" parent="." node_paths=PackedStringArray("enemy_mon_module", "player_mon_module", "enemy_mon_state_dump", "player_mon_state_dump", "controls", "message_panel")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 410.0
@@ -31,7 +30,6 @@ enemy_mon_state_dump = NodePath("tabs/them")
 player_mon_state_dump = NodePath("tabs/you")
 controls = NodePath("left/controls_menu")
 message_panel = NodePath("left/message_panel")
-move_replace_panel = NodePath("left/move_replace_panel")
 
 [node name="left" type="VBoxContainer" parent="battle_renderer"]
 layout_mode = 0
@@ -77,18 +75,6 @@ text = "> Test"
 [node name="Button2" type="Button" parent="battle_renderer/left/message_panel/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "> Test 2"
-
-[node name="move_replace_panel" type="Control" parent="battle_renderer/left" node_paths=PackedStringArray("options_parent")]
-layout_mode = 2
-script = ExtResource("7_eb6dy")
-mode = 4
-options_parent = NodePath("VBoxContainer")
-metadata/_custom_type_script = "uid://c8c2ar3x10q7a"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="battle_renderer/left/move_replace_panel"]
-layout_mode = 0
-offset_right = 167.0
-offset_bottom = 71.0
 
 [node name="tabs" type="TabContainer" parent="battle_renderer"]
 texture_filter = 1

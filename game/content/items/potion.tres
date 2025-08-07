@@ -28,4 +28,5 @@ name = "Potion"
 use_effects = Array[ExtResource("3_tr0h5")]([SubResource("Resource_r6uwe")])
 use_avfx = Array[ExtResource("2_070fs")]([SubResource("Resource_4qg3t")])
 consumable = true
+use_message = "{user_name} uses {item_name}!"
 metadata/_custom_type_script = "uid://cpyhd3y2ecu81"

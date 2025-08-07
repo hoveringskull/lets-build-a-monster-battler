@@ -14,7 +14,10 @@ var atk_growth: float
 var def_growth: float
 var spd_growth: float
 
+
 # ephemeral state, cleared after each turn
+var pending_moves: Array[MoveResource]
+var pending_move: MoveResource
 var move_blocked
 
 var image: Texture2D:

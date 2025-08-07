@@ -4,7 +4,7 @@ extends Node
 
 # INTERACTION_MODE encodes the menu states the main battle menu can be in.
 # Since RUN isn't a special menu, it does not get an entry here
-enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON}
+enum INTERACTION_MODE {NONE, FIGHT, ITEM, MON, MOVE_REPLACE}
 
 enum PHASE {AWAIT_INPUT, RESOLVE_ROUND, AWAIT_AVFX, GAME_OVER}
 
@@ -105,6 +105,8 @@ func handle_request_menu_option_by_index(mode: INTERACTION_MODE, index: int):
 			TrainerController.set_current_monster_move(game_state.player, index)
 		INTERACTION_MODE.ITEM:
 			TrainerController.set_use_item_at_index(game_state.player, index)
+		INTERACTION_MODE.MOVE_REPLACE:
+			MonsterController.replace_monster_move_with_pending_move(game_state.player_monster, index)
 	
 	Events.on_menu_option_selected.emit()
 
@@ -112,13 +114,9 @@ func handle_run():
 	if current_phase != PHASE.AWAIT_INPUT:
 		return
 
-	AVFXManager.queue_avfx_message("You run away. Your cowardice will not be forgotten")
-	
-	var timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = 2.0
-	timer.timeout.connect(handle_quit)
-	timer.start()
+	var choice = ChoiceResource.new("> Leave", handle_quit)
+	var choice_cancel = ChoiceResource.new("> Stay", func(): return)
+	AVFXManager.queue_avfx_message("If you run away, your cowardice will not be forgotten", [choice, choice_cancel])
 
 func handle_quit():
 	get_tree().quit()

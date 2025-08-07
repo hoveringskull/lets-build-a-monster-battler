@@ -9,3 +9,5 @@ class_name SpeciesResource extends Resource
 @export var base_attack: int
 @export var base_defence: int
 @export var base_speed: int
+
+@export var moves_learned_by_level: Array[IntMoveResource]

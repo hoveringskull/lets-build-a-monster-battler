@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="MoveResource" load_steps=5 format=3 uid="uid://b25fucqarqclv"]
+[gd_resource type="Resource" script_class="MoveResource" load_steps=6 format=3 uid="uid://b25fucqarqclv"]
 
 [ext_resource type="Script" uid="uid://be1nhralvcl0t" path="res://scripts/content/move_resource.gd" id="1_tbhuo"]
 [ext_resource type="Script" uid="uid://bint2xf8ek2ve" path="res://scripts/content/targeted_effects/targeted_effect.gd" id="2_35isn"]
+[ext_resource type="Script" uid="uid://bhld0rqw1bpqt" path="res://scripts/avfx/avfx_resources/avfx_resource.gd" id="2_c7rse"]
 [ext_resource type="Script" uid="uid://38xcaadcasq3" path="res://scripts/content/targeted_effects/do_heal.gd" id="3_35isn"]
 
 [sub_resource type="Resource" id="Resource_c7rse"]
@@ -19,4 +20,6 @@ use_effects = Array[ExtResource("2_35isn")]([SubResource("Resource_c7rse")])
 type = 0
 use_message = "{user_name} uses {move_name}"
 base_accuracy = 1.0
+move_priority = 0
+use_avfx = Array[ExtResource("2_c7rse")]([])
 metadata/_custom_type_script = "uid://be1nhralvcl0t"

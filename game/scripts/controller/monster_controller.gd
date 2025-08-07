@@ -41,6 +41,18 @@ func get_monster_move_at_index(monster: Monster, index: int) -> Move:
 		return monster.fallback_move
 	return monster.moves[index]
 
+func replace_monster_move_with_pending_move(monster: Monster, index: int):
+	var previous_move = monster.moves[index]
+	var move = Move.new()
+	move.resource = monster.pending_move
+	move.usages = move.resource.usage_max
+	monster.moves[index] = move
+	monster.pending_move = null
+	Events.on_move_replace_completed.emit()
+	AVFXManager.queue_avfx_message("{monster_name} forgot {old_move_name} and learned {move_name}".format({"monster_name": monster.name, "old_move_name": previous_move.name, "move_name": move.name}))
+	
+	maybe_give_move_replace_choice(monster)
+
 func use_monster_move(monster: Monster, move: Move):
 	if move.usages <= 0 or monster.hp == 0:
 		return
@@ -69,8 +81,7 @@ func use_monster_move(monster: Monster, move: Move):
 	if crit:
 		logs.append("Critical hit!")
 	
-	
-	var message_avfx = AVFXMessages.new(logs as Array[String])
+	var message_avfx = AVFXMessages.fromStrings(logs as Array[String])
 	var avfx_group = move.resource.use_avfx.duplicate()
 	avfx_group.append(message_avfx)
 	AVFXManager.queue_avfx_effect_group(avfx_group, monster)
@@ -115,11 +126,42 @@ func add_experience_to_monster(monster: Monster, experience: int):
 		monster.experience -= Calculations.experience_for_level(monster.level)
 		level_up_monster(monster)
 		Events.on_monster_updated.emit(monster)
+		
+	maybe_give_move_replace_choice(monster)
+
+func maybe_give_move_replace_choice(monster: Monster):
+	if monster.pending_moves.size() > 0:
+		monster.pending_move = monster.pending_moves.pop_front()
+		
+		if monster == game_state.player_monster:
+			var labels: Array[StringEnabled] = []
+			for move in monster.moves:
+				labels.append(StringEnabled.new(move.name, true))
+			var choice_yes = ChoiceResource.new("Yes", func(): Events.on_player_pending_learn_move.emit(labels))
+			var choice_no = ChoiceResource.new("No", func(): AVFXManager.queue_avfx_message("Okay!"))
+			AVFXManager.queue_avfx_message("{monster_name} wants to learn {move_name}. Forget a move to learn?"\
+				.format({"monster_name": monster.name, "move_name": monster.pending_move.name}),\
+				[choice_yes, choice_no])
+		else:
+			# TODO: Choose a random move to replace. The AI is dumb.
+			return
+
 
 func level_up_monster(monster: Monster):
 	monster.level += 1
 	AVFXManager.queue_avfx_message("{monster_name} has leveled up to level {level}".format({"monster_name": monster.name, "level": monster.level}))
 	# TODO: Handle move learning down here!
+	
+	var moves_at_level: Array[IntMoveResource] = monster.species.moves_learned_by_level.filter(func(im): return im.level == monster.level)
+	for mil in moves_at_level:
+		monster.pending_moves.append(mil.move)
+	
+	while monster.moves.size() < 4:
+		var move_to_add = monster.pending_moves.pop_front()
+		monster.moves.append(move_to_add)
+		AVFXManager.queue_avfx_message("{monster_name} learned {move_name}".format({"monster_name": monster.name, "move_name": move_to_add.name}))
+	
+
 
 func instantiate_condition_on_monster(monster: Monster, condition_resource: ConditionResource):
 	if monster.conditions\
