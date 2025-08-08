@@ -31,8 +31,6 @@ func adjust_monster_hitpoints(monster: Monster, amount: int):
 	if monster.hp == 0:
 		faint_monster(monster)
 
-	Events.on_monster_updated.emit(monster)
-
 func faint_monster(monster: Monster):
 	return
 
@@ -69,16 +67,19 @@ func use_monster_move(monster: Monster, move: Move):
 	if crit:
 		logs.append("Critical hit!")
 	
-	
+	for effect in move.resource.use_effects:
+		if effect._should_do(hit, crit):
+			effect._do(monster, move, game_state, crit, logs)
+			
 	var message_avfx = AVFXMessages.fromStrings(logs as Array[String])
 	var avfx_group = move.resource.use_avfx.duplicate()
 	avfx_group.append(message_avfx)
 	AVFXManager.queue_avfx_effect_group(avfx_group, monster)
 	
-	
-	for effect in move.resource.use_effects:
-		if effect._should_do(hit, crit):
-			effect._do(monster, move, game_state, crit, logs)
+	var cleanup_avfx_group = []
+	var update_effect: AVFXFunction = AVFXFunction.new(func(): Events.on_monster_updated.emit(monster))
+	var target_effect: AVFXFunction = AVFXFunction.new(func(): Events.on_monster_updated.emit(opponent))
+	AVFXManager.queue_avfx_effect_group([update_effect, target_effect], monster)
 	
 	
 func create_monster(species: SpeciesResource, nickname: String = "") -> Monster:
@@ -114,7 +115,6 @@ func add_experience_to_monster(monster: Monster, experience: int):
 	while monster.experience >= Calculations.experience_for_level(monster.level):
 		monster.experience -= Calculations.experience_for_level(monster.level)
 		level_up_monster(monster)
-		Events.on_monster_updated.emit(monster)
 		
 	maybe_give_move_replace_choice(monster)
 
@@ -184,8 +184,6 @@ func instantiate_condition_on_monster(monster: Monster, condition_resource: Cond
 	condition.duration_remaining = condition.resource.duration
 	monster.conditions.append(condition)
 	
-	Events.on_monster_updated.emit(monster)
-
 func on_turn_begun(monster: Monster):
 	if monster.hp == 0:
 		return
@@ -201,5 +199,3 @@ func on_turn_begun(monster: Monster):
 
 func end_condition(monster: Monster, condition: Condition):
 	monster.conditions.remove_at(monster.conditions.find(condition))
-	
-	Events.on_monster_updated.emit(monster)

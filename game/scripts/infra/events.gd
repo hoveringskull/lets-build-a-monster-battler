@@ -39,3 +39,4 @@ signal on_avfx_flash_monster
 signal on_avfx_flash_screen
 signal on_avfx_shake_screen
 signal on_avfx_messages
+signal on_avfx_function

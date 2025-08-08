@@ -25,6 +25,7 @@ func _ready():
 	Events.request_quit.connect(handle_quit)
 	Events.on_avfx_block_start.connect(func(): current_phase = PHASE.AWAIT_AVFX)
 	Events.on_avfx_block_end.connect(func(): current_phase = PHASE.AWAIT_INPUT)
+	Events.on_avfx_function.connect(handle_avfx_function)
 	
 	Events.on_ui_ready.connect(setup_model)
 	
@@ -169,6 +170,12 @@ func resolve_round():
 			AVFXManager.queue_avfx_message("You win!", [quit_choice, restart_choice])
 		else:
 			TrainerController.add_trainer_monster_to_battle(game_state.opponent, next_index)
+	
+	var update_player_mon = AVFXFunction.new(func(): Events.on_monster_updated.emit(game_state.player_monster))
+	var update_opponent_mon = AVFXFunction.new(func(): Events.on_monster_updated.emit(game_state.opponent_monster))
+	
+	AVFXManager.queue_avfx_effect_group([update_player_mon, update_opponent_mon], null)	
+
 
 func does_player_go_first() -> bool:
 	assert(game_state.player.chosen_action_type != INTERACTION_MODE.NONE)
@@ -192,3 +199,17 @@ func does_player_go_first() -> bool:
 	else:
 		return game_state.player_monster.speed >= game_state.opponent_monster.speed
 	
+func handle_avfx_function(instance: AVFXInstance, function: Callable):
+	if instance.resource.delay == 0:
+		call_avfx_function(instance, function)
+	else:
+		var timer = Timer.new()
+		add_child(timer)
+		timer.wait_time = instance.resource.delay
+		timer.one_shot = true
+		timer.timeout.connect(func(): call_avfx_function(instance, function))
+		timer.start()
+
+func call_avfx_function(instance: AVFXInstance, function: Callable):
+	function.call()
+	instance.finish()
